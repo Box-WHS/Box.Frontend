@@ -33,3 +33,20 @@ $header_height: calc(5rem);
     display: flex;
   }
 }
+
+.app-container {
+  margin: 0 auto;
+  margin-top: 0;
+
+  &.center  {
+    align-self: center;
+  }
+
+  &.spacer-top {
+    margin-top: calc(#{$header_height} + 2rem);
+  }
+
+  &.padding-bottom {
+    padding-bottom: 4rem;
+  }
+}

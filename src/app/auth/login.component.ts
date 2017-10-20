@@ -13,4 +13,8 @@ export class LoginComponent {
   constructor(private formBuilder: FormBuilder) {
 
   }
+
+  onSubmit() {
+
+  }
 }

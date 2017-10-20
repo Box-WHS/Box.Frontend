@@ -1,15 +1,30 @@
-<div>
+<div class="app-container">
   <h1>Willkommen in der Box</h1>
-</div>
-<div>
-  <form [formGroup]="loginForm">
+
+  <form [formGroup]="loginForm" (submit)="onSubmit()">
     <section>
       <mat-form-field>
-        <input matInput placeholder="Nutzername" type="search">
+        <input matInput formControlName="Username" placeholder="Nutzername" type="search" maxlength="64">
+        <mat-error *ngIf="loginForm.controls['Username'].errors">Der Nutzername fehlt</mat-error>
       </mat-form-field>
+      <br/>
       <mat-form-field>
-        <input matInput placeholder="Passwort" type="password">
+        <input matInput formControlName="Password" placeholder="Passwort" type="password" maxlength="64">
+        <mat-error *ngIf="loginForm.controls['Password'].errors">Das Passwort fehlt</mat-error>
       </mat-form-field>
+    </section>
+    <section>
+      <button
+        mat-raised-button
+        color="primary"
+        disabled
+        *ngIf="
+          loginForm.controls['Password'].errors || loginForm.controls['Username'].errors; else formValid">
+        Einloggen
+      </button>
+      <ng-template #formValid>
+        <button mat-raised-button color="primary" type="submit">Einloggen</button>
+      </ng-template>
     </section>
   </form>
 </div>

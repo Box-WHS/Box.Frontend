@@ -3,12 +3,15 @@ import { LoginComponent } from './login.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
+import { CommonModule } from '@angular/common';
+import { AuthService } from './auth.service';
 
 @NgModule({
   declarations: [
     LoginComponent
   ],
   imports: [
+    CommonModule,
     ReactiveFormsModule,
     FormsModule,
     MaterialModule,
@@ -21,13 +24,7 @@ import { MaterialModule } from '../material.module';
     ])
   ],
   providers: [
-
-  ],
-  bootstrap: [
-
-  ],
-  exports: [
-    LoginComponent
+    AuthService
   ]
 })
 export class AuthModule {}
