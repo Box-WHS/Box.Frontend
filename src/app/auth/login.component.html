@@ -14,19 +14,30 @@
           <mat-error *ngIf="loginForm.controls['Password'].errors">Das Passwort fehlt</mat-error>
         </mat-form-field>
         <div class="password-reset-container">
-          <a class="password-reset" [routerLink]="['reset' ]">Passwort vergessen?</a>
+          <a class="password-reset" [routerLink]="[ 'reset' ]">Passwort vergessen?</a>
         </div>
 
       </section>
       <br/>
       <section>
-        <button
-          [disabled]="loginForm.controls['Password'].errors || loginForm.controls['Username'].errors"
-          mat-raised-button
-          type="submit"
-          color="primary">
-          Einloggen
-        </button>
+        <table style="width: 100%">
+         <tr>
+           <td>
+             <button mat-raised-button type="button" color="primary" [routerLink]="['register']">
+               Registrieren
+             </button>
+           </td>
+           <td>
+             <button
+               [disabled]="loginForm.status !== 'VALID'"
+               mat-raised-button
+               type="submit"
+               color="primary">
+               Einloggen
+             </button>
+           </td>
+         </tr>
+        </table>
       </section>
     </form>
   </div>

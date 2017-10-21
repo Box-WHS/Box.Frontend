@@ -12,6 +12,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { RecaptchaModule } from 'ng-recaptcha';
+import { AuthService } from './auth/auth.service';
+import { UserGuard } from './auth/user.guard';
 
 @NgModule({
   declarations: [
@@ -28,12 +30,20 @@ import { RecaptchaModule } from 'ng-recaptcha';
     SimpleNotificationsModule.forRoot(),
     RouterModule.forRoot([
       {
+        path: '',
+        pathMatch: 'full',
+        loadChildren: './dashboard/dashboard.module#DashboardModule',
+        canLoad: [ UserGuard ]
+      },
+      {
         path: 'login',
         loadChildren: './auth/auth.module#AuthModule'
       }
     ])
   ],
   providers: [
+    AuthService,
+    UserGuard,
     { provide: BrowserXhr, useClass: NgProgressBrowserXhr },
     { provide: HTTP_INTERCEPTORS, useClass: NgProgressInterceptor, multi: true }
   ],
