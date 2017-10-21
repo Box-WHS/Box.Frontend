@@ -5,21 +5,31 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
 import { CommonModule } from '@angular/common';
 import { AuthService } from './auth.service';
+import { PasswordResetComponent } from './password-reset.component';
+import { CaptchaComponent } from './captcha.component';
+import { RecaptchaModule } from 'ng-recaptcha';
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    PasswordResetComponent,
+    CaptchaComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
     MaterialModule,
+    RecaptchaModule.forRoot(),
     RouterModule.forChild([
       {
         path: '',
         pathMatch: 'full',
         component: LoginComponent
+      },
+      {
+        path: 'reset',
+        component: PasswordResetComponent
       }
     ])
   ],

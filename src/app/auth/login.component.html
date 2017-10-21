@@ -1,31 +1,34 @@
-<div class="app-container">
-  <h1>Willkommen in der Box</h1>
+<div class="app-container center outer-center">
+  <div class="inner-center">
+    <h1>Willkommen in der Box</h1>
 
-  <form [formGroup]="loginForm" (submit)="onSubmit()">
-    <section>
-      <mat-form-field>
-        <input matInput formControlName="Username" placeholder="Nutzername" type="search" maxlength="64">
-        <mat-error *ngIf="loginForm.controls['Username'].errors">Der Nutzername fehlt</mat-error>
-      </mat-form-field>
+    <form [formGroup]="loginForm" (submit)="onSubmit()">
+      <section>
+        <mat-form-field>
+          <input matInput formControlName="Username" placeholder="Nutzername" type="search" maxlength="64">
+          <mat-error *ngIf="loginForm.controls['Username'].errors">Der Nutzername fehlt</mat-error>
+        </mat-form-field>
+        <br/>
+        <mat-form-field>
+          <input matInput formControlName="Password" placeholder="Passwort" type="password" maxlength="64">
+          <mat-error *ngIf="loginForm.controls['Password'].errors">Das Passwort fehlt</mat-error>
+        </mat-form-field>
+        <div class="password-reset-container">
+          <a class="password-reset" [routerLink]="['reset' ]">Passwort vergessen?</a>
+        </div>
+
+      </section>
       <br/>
-      <mat-form-field>
-        <input matInput formControlName="Password" placeholder="Passwort" type="password" maxlength="64">
-        <mat-error *ngIf="loginForm.controls['Password'].errors">Das Passwort fehlt</mat-error>
-      </mat-form-field>
-    </section>
-    <section>
-      <button
-        mat-raised-button
-        color="primary"
-        disabled
-        *ngIf="
-          loginForm.controls['Password'].errors || loginForm.controls['Username'].errors; else formValid">
-        Einloggen
-      </button>
-      <ng-template #formValid>
-        <button mat-raised-button color="primary" type="submit">Einloggen</button>
-      </ng-template>
-    </section>
-  </form>
+      <section>
+        <button
+          [disabled]="loginForm.controls['Password'].errors || loginForm.controls['Username'].errors"
+          mat-raised-button
+          type="submit"
+          color="primary">
+          Einloggen
+        </button>
+      </section>
+    </form>
+  </div>
 </div>
 

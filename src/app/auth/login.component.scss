@@ -1,0 +1,21 @@
+.inner-center {
+  display: inline-block;
+}
+
+.outer-center {
+  text-align: center;
+}
+
+form {
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+.password-reset-container {
+  text-align: right;
+}
+
+.password-reset {
+  text-decoration: none;
+}

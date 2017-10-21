@@ -23,7 +23,6 @@ $header_height: calc(5rem);
 
 .app-container-outer {
   position: absolute;
-  top: $header_height;
   height: 100%;
   width: 100%;
 
@@ -35,6 +34,7 @@ $header_height: calc(5rem);
 }
 
 .app-container {
+  display: table;
   margin: 0 auto;
   margin-top: 0;
 

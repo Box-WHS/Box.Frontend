@@ -10,6 +10,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgProgressBrowserXhr, NgProgressInterceptor, NgProgressModule } from 'ngx-progressbar';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { SimpleNotificationsModule } from 'angular2-notifications';
+import { RecaptchaModule } from 'ng-recaptcha';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { CommonModule } from '@angular/common';
     BrowserAnimationsModule,
     MaterialModule,
     NgProgressModule,
+    SimpleNotificationsModule.forRoot(),
     RouterModule.forRoot([
       {
         path: 'login',
