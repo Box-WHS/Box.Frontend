@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -12,4 +13,7 @@ export class AppComponent {
     pauseOnHover: true,
     clickToClose: true
   };
+
+  constructor(public authService: AuthService) {
+  }
 }

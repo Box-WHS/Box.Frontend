@@ -1,13 +1,14 @@
 <ng-progress></ng-progress>
+<simple-notifications [options]="notificationOptions"></simple-notifications>
 
-<div class="app-top">
+<div class="app-top" *ngIf="authService.isLoggedIn">
   Box
+  <mat-tab-group class="navbar">
+    <mat-tab label="Übersicht"></mat-tab>
+  </mat-tab-group>
 </div>
 
-<simple-notifications [options]="notificationOptions"></simple-notifications>
 
 <div class="app-container-outer">
   <router-outlet></router-outlet>
 </div>
-
-
