@@ -4,5 +4,11 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  auth: {
+    forceSecureConnection: false,
+    cookieName: 'Box_Session',
+    expirationDays: 9999,
+    domain: 'localhost'
+  }
 };

@@ -15,6 +15,7 @@ import { RecaptchaModule } from 'ng-recaptcha';
 import { AuthService } from './auth/auth.service';
 import { UserGuard } from './auth/user.guard';
 import { NotificationsService } from 'angular2-notifications/dist';
+import { CookieModule } from 'ngx-cookie';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { NotificationsService } from 'angular2-notifications/dist';
     MaterialModule,
     NgProgressModule,
     SimpleNotificationsModule.forRoot(),
+    CookieModule.forRoot(),
     RouterModule.forRoot([
       {
         path: '',
