@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from './auth.service';
@@ -8,14 +8,21 @@ import { AuthService } from './auth.service';
   templateUrl: './password-reset.component.html',
   styleUrls: ['./password-reset.component.scss']
 })
-export class PasswordResetComponent {
+export class PasswordResetComponent implements OnInit {
   isEmail: boolean;
   inputType = 'search';
-  captchaResolved: boolean;
+  isPasswordResetRequest = true;
+
   placeholder = 'Nutzername';
+  requestResetForm = this.formBuilder.group({
+    username: ['', Validators.required],
+    captcha: ['', Validators.required]
+  });
+
   resetForm = this.formBuilder.group({
-    Username: ['', Validators.required],
-    Captcha: ['', Validators.required]
+    key: ['', Validators.required],
+    password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(32)]],
+    passwordConfirm: ['', [Validators.required]]
   });
 
   constructor(
@@ -29,17 +36,31 @@ export class PasswordResetComponent {
     }
   }
 
-  onSubmit(): void {
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      if (params['key']) {
+        this.resetForm.controls.key.setValue(params['key']);
+        this.isPasswordResetRequest = false;
+      }
+    });
+  }
+
+  onSubmitRequest(): void {
     this.notificationsService.success('Eine E-Mail mit weiteren Anweisungen wurde abgeschickt');
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
+  onSubmitReset(): void {
+    this.notificationsService.success('Dein Passwort wurde zurückgesetzt');
+    this.router.navigate(['../../'], { relativeTo: this.route });
+  }
+
   onCaptchaResolved(response: string): void {
-    this.resetForm.controls['Captcha'].setValue(response);
+    this.requestResetForm.controls.captcha.setValue(response);
   }
 
   onInputChange(): void {
-    this.isEmail = (this.resetForm.controls[ 'Username' ].value as string).indexOf('@') > -1;
+    this.isEmail = (this.requestResetForm.controls.username.value as string).indexOf('@') > -1;
     this.inputType = this.isEmail ? 'email' : 'search';
     this.placeholder = this.isEmail ? 'E-Mail' : 'Nutzername';
   }

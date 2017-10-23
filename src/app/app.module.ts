@@ -14,6 +14,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { AuthService } from './auth/auth.service';
 import { UserGuard } from './auth/user.guard';
+import { NotificationsService } from 'angular2-notifications/dist';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { UserGuard } from './auth/user.guard';
     ])
   ],
   providers: [
+    NotificationsService,
     AuthService,
     UserGuard,
     { provide: BrowserXhr, useClass: NgProgressBrowserXhr },

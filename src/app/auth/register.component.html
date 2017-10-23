@@ -1,20 +1,20 @@
 <div class="app-container center outer-center">
-  <div class="inner-center" *ngIf="!registerSuccess; else registrationDone">
+  <div class="inner-center">
     <h1>Tritt der Box bei</h1>
     <p>Blub.</p>
     <form [formGroup]="registerForm" (submit)="onSubmit()">
       <section>
         <mat-form-field>
-          <input matInput formControlName="Username" placeholder="Nutzername" type="search" maxlength="64">
-          <mat-error *ngIf="registerForm.controls['Username'].errors">Der Nutzername fehlt</mat-error>
+          <input matInput formControlName="username" placeholder="Nutzername" type="search" maxlength="64">
+          <mat-error *ngIf="registerForm.controls.username.errors">Der Nutzername fehlt</mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput email formControlName="Email" placeholder="E-Mail" type="email" maxlength="64">
-          <mat-error *ngIf="registerForm.controls['Email'].errors">Die E-Mail ist nicht gültig</mat-error>
+          <input matInput email formControlName="email" placeholder="E-Mail" type="email" maxlength="64">
+          <mat-error *ngIf="registerForm.controls.email.errors">Die E-Mail ist nicht gültig</mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput formControlName="Password" placeholder="Passwort" type="password" maxlength="64">
-          <mat-error *ngIf="registerForm.controls['Email'].errors">Das Passwort fehlt</mat-error>
+          <input matInput formControlName="password" placeholder="Passwort" type="password" maxlength="64">
+          <mat-error *ngIf="registerForm.controls.password.errors">Das Passwort fehlt</mat-error>
         </mat-form-field>
       </section>
       <section>
@@ -22,7 +22,7 @@
           <tr>
             <td colspan="2" align="center">
               <app-captcha (resolved)="onCaptchaResolved($event)"></app-captcha>
-              <mat-hint *ngIf="registerForm.controls['Captcha'].errors"><br/>Das Captcha muss gelöst sein</mat-hint>
+              <mat-hint *ngIf="registerForm.controls.captcha.errors"><br/>Das Captcha muss gelöst sein</mat-hint>
             </td>
           </tr>
           <br/>
@@ -50,10 +50,5 @@
       </section>
     </form>
   </div>
-  <ng-template #registrationDone>
-    <div class="inner-center">
-      <p>Deine Registration ist abgeschlossen. Bitte folge den Anweisungen in der E-Mail.</p>
-    </div>
-  </ng-template>
 </div>
 

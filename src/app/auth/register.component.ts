@@ -10,13 +10,11 @@ import { NotificationsService } from 'angular2-notifications/dist';
 })
 export class RegisterComponent {
   registerForm = this.formBuilder.group({
-    Username: ['', Validators.required],
-    Email: ['', Validators.required],
-    Password: ['', Validators.required],
-    Captcha: ['', Validators.required]
+    username: ['', Validators.required],
+    email: ['', [ Validators.required, Validators.email]],
+    password: ['', Validators.required],
+    captcha: ['', Validators.required]
   });
-
-  registerSuccess: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,10 +27,11 @@ export class RegisterComponent {
   }
 
   onSubmit(): void {
-    this.registerSuccess = true;
+    this.notificationsService.success('Eine E-Mail mit weiteren Anweisungen wurde abgeschickt');
+    this.router.navigate(['../']);
   }
 
   onCaptchaResolved(response: string) {
-    this.registerForm.controls['Captcha'].setValue(response);
+    this.registerForm.controls.captcha.setValue(response);
   }
 }

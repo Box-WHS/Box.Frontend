@@ -9,8 +9,8 @@ import { NavigationExtras, Router } from '@angular/router';
 })
 export class LoginComponent {
   loginForm = this.formBuilder.group({
-    Username: ['', Validators.required],
-    Password: ['', Validators.required]
+    username: ['', Validators.required],
+    password: ['', Validators.required]
   });
 
   constructor(

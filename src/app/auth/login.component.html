@@ -5,13 +5,13 @@
     <form [formGroup]="loginForm" (submit)="onSubmit()">
       <section>
         <mat-form-field>
-          <input matInput formControlName="Username" placeholder="Nutzername" type="search" maxlength="64">
-          <mat-error *ngIf="loginForm.controls['Username'].errors">Der Nutzername fehlt</mat-error>
+          <input matInput formControlName="username" placeholder="Nutzername" type="search" maxlength="64">
+          <mat-error *ngIf="loginForm.controls.username.errors">Der Nutzername fehlt</mat-error>
         </mat-form-field>
         <br/>
         <mat-form-field>
-          <input matInput formControlName="Password" placeholder="Passwort" type="password" maxlength="64">
-          <mat-error *ngIf="loginForm.controls['Password'].errors">Das Passwort fehlt</mat-error>
+          <input matInput formControlName="password" placeholder="Passwort" type="password" maxlength="64">
+          <mat-error *ngIf="loginForm.controls.password.errors">Das Passwort fehlt</mat-error>
         </mat-form-field>
         <div class="password-reset-container">
           <a class="password-reset" [routerLink]="[ 'reset' ]">Passwort vergessen?</a>
