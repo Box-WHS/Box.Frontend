@@ -31,7 +31,7 @@ export class PasswordResetComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder) {
-    if (authService.isLoggedIn) {
+    if (authService.isLoggedIn()) {
       this.router.navigate([this.authService.redirectUrl]);
     }
   }

@@ -21,7 +21,8 @@ export class RegisterComponent {
     private router: Router,
     private notificationsService: NotificationsService,
     private authService: AuthService) {
-    if (authService.isLoggedIn) {
+    if (authService.isLoggedIn()) {
+      console.log('Is logged in');
       this.router.navigate([this.authService.redirectUrl]);
     }
   }

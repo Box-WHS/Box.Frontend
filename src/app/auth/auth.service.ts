@@ -10,21 +10,18 @@ export class AuthService {
   readonly testSession = 'myAwesomeSessionKeyIsSoAwesome';
 
   redirectUrl = '/';
-  isLoggedIn: boolean;
+  sessionValid = false;
+  loggedIn = false;
 
   constructor(
     private router: Router,
-    private cookieService: CookieService) {}
+    private cookieService: CookieService) {
+    this.checkSession();
+  }
 
   login(): Observable<boolean> {
-    if (this.cookieService.get(environment.auth.cookieName) === this.testSession) {
-      console.log('Recognized session cookie');
-      this.isLoggedIn = true;
-      return Observable.of(true);
-    }
-
     return Observable.of(true).do(val => {
-      this.isLoggedIn = val;
+      this.loggedIn = val;
       console.log('Logged in');
 
       this.cookieService.put(environment.auth.cookieName, this.testSession, {
@@ -35,9 +32,22 @@ export class AuthService {
     });
   }
 
+  checkSession(): boolean {
+    if (this.cookieService.get(environment.auth.cookieName) === this.testSession) {
+      console.log('Recognized session cookie');
+      this.loggedIn = true;
+      return true;
+    }
+    return false;
+  }
+
   logout(): void {
-    this.isLoggedIn = false;
+    this.loggedIn = false;
     this.cookieService.remove(environment.auth.cookieName);
     this.router.navigate(['/login']);
+  }
+
+  isLoggedIn(): boolean {
+    return this.loggedIn || this.sessionValid;
   }
 }

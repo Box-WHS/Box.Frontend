@@ -1,7 +1,7 @@
 <ng-progress></ng-progress>
 <simple-notifications [options]="notificationOptions"></simple-notifications>
 
-<div class="app-top" *ngIf="authService.isLoggedIn">
+<div class="app-top" *ngIf="authService.isLoggedIn()">
   Box
   <mat-tab-group class="navbar">
     <mat-tab label="Übersicht"></mat-tab>

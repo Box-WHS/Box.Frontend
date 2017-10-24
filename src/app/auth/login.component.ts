@@ -17,7 +17,7 @@ export class LoginComponent {
     private formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthService) {
-    if (authService.isLoggedIn) {
+    if (authService.isLoggedIn()) {
       this.router.navigate([this.authService.redirectUrl]);
     }
   }

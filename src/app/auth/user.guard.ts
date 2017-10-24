@@ -17,7 +17,8 @@ export class UserGuard implements CanActivate, CanLoad {
   }
 
   checkLogin(url: string): boolean {
-    if (this.authService.isLoggedIn) { return true; }
+    if (this.authService.isLoggedIn()) { return true; }
+    if (this.authService.checkSession()) { return true; }
 
     this.authService.redirectUrl = url;
 
