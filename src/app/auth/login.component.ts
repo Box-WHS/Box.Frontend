@@ -23,7 +23,7 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    this.authService.login().subscribe(loggedIn => {
+    this.authService.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value).subscribe(loggedIn => {
       if (loggedIn) {
         this.router.navigate([this.authService.redirectUrl]);
       }

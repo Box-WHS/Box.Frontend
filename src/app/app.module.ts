@@ -11,15 +11,17 @@ import { NgProgressBrowserXhr, NgProgressInterceptor, NgProgressModule } from 'n
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { SimpleNotificationsModule } from 'angular2-notifications';
-import { RecaptchaModule } from 'ng-recaptcha';
 import { AuthService } from './auth/auth.service';
 import { UserGuard } from './auth/user.guard';
 import { NotificationsService } from 'angular2-notifications/dist';
 import { CookieModule } from 'ngx-cookie';
+import { WindowRef } from './window-ref';
+import { SidenavComponent } from './sidenav/sidenav.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SidenavComponent
   ],
   imports: [
     CommonModule,
@@ -47,6 +49,7 @@ import { CookieModule } from 'ngx-cookie';
   providers: [
     NotificationsService,
     AuthService,
+    WindowRef,
     UserGuard,
     { provide: BrowserXhr, useClass: NgProgressBrowserXhr },
     { provide: HTTP_INTERCEPTORS, useClass: NgProgressInterceptor, multi: true }

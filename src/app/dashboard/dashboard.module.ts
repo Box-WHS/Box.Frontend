@@ -13,7 +13,10 @@ import { MaterialModule } from '../material.module';
       {
         path: '',
         pathMatch: 'full',
-        component: DashboardComponent
+        component: DashboardComponent,
+        data: {
+          title: 'Dashboard'
+        }
       }
     ])
   ]
