@@ -34,8 +34,9 @@ $header_height: calc(7rem);
 }
 
 .app-container {
-  display: table;
+  display: block;
   margin: 0 auto;
+  box-sizing: border-box;
 
   &.center  {
     align-self: center;

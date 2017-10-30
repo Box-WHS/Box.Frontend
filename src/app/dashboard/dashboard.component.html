@@ -1,5 +1,8 @@
 <div class="app-container outer-spacer">
-  <a [routerLink]="[ '/login' ]">login</a><br/>
-  <a [routerLink]="[ '/login/reset' ]">reset</a><br/>
-  <button mat-raised-button (click)="onLogout()">Logout</button>
+  <div style="text-align: center">
+    <div style="display: inline-block; width: 50%">
+      <h1>Dein Lernfortschritt</h1>
+      <mat-progress-bar value="50"></mat-progress-bar>
+    </div>
+  </div>
 </div>

@@ -6,7 +6,7 @@
 </div>
 
 <ng-template #loggedIn>
-  <mat-sidenav-container>
+  <mat-sidenav-container style="height: 100vh;">
     <mat-sidenav [opened]="!windowRef.isMobile() ? true : sidenavOpened" [mode]="windowRef.isMobile() ? 'over': 'side'">
       <app-sidebar></app-sidebar>
     </mat-sidenav>

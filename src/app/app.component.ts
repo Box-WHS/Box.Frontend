@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AuthService } from './auth/auth.service';
 import { WindowRef } from './window-ref';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -27,6 +27,7 @@ export class AppComponent implements OnInit {
     public authService: AuthService,
     public windowRef: WindowRef,
     private router: Router,
+    private cdr: ChangeDetectorRef,
     private activatedRoute: ActivatedRoute) {
   }
 
@@ -42,6 +43,10 @@ export class AppComponent implements OnInit {
       })
       .filter((route) => route.outlet === 'primary')
       .mergeMap((route) => route.data)
-      .subscribe((event) => this.pageTitle = event['title']);
+      .subscribe((event) => {
+        this.cdr.detectChanges();
+        this.pageTitle = event['title'];
+        }
+      );
   }
 }

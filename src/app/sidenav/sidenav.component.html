@@ -18,6 +18,8 @@
   </mat-menu>
 
   <mat-toolbar-row *ngFor="let entry of entries" (click)="navigate(entry.routerLink)">
+    <mat-icon *ngIf="entry.icon">{{entry.icon}}</mat-icon>
+    <span *ngIf="entry.icon">&nbsp;&nbsp;</span>
     <span>{{entry.title}}</span>
   </mat-toolbar-row>
 </mat-toolbar>

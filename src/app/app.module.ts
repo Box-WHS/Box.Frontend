@@ -17,11 +17,13 @@ import { NotificationsService } from 'angular2-notifications/dist';
 import { CookieModule } from 'ngx-cookie';
 import { WindowRef } from './window-ref';
 import { SidenavComponent } from './sidenav/sidenav.component';
+import { LogoutComponent } from './auth/logout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SidenavComponent
+    SidenavComponent,
+    LogoutComponent
   ],
   imports: [
     CommonModule,
@@ -43,6 +45,16 @@ import { SidenavComponent } from './sidenav/sidenav.component';
       {
         path: 'login',
         loadChildren: './auth/auth.module#AuthModule'
+      },
+      {
+        path: 'logout',
+        component: LogoutComponent,
+        canLoad: [ UserGuard ]
+      },
+      {
+        path: 'subjects',
+        loadChildren: './subjects/subjects.module#SubjectsModule',
+        canLoad: [ UserGuard ]
       }
     ])
   ],
