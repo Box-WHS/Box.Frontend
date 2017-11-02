@@ -1,0 +1,8 @@
+mat-row {
+  transition: background-color 0.2s ease;
+}
+
+mat-row:hover {
+  cursor: pointer;
+  background-color: aliceblue;
+}

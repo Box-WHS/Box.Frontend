@@ -1,0 +1,44 @@
+<div style="display: table; position: absolute; height: 70%; width: 100%; font-size: 14pt">
+  <div style="text-align: center; display: table-cell; vertical-align: middle">
+    <mat-card style="max-width: 60%; min-height: 50%; display: inline-block; margin-left: auto; margin-right: auto;">
+      <mat-card-header>
+        <mat-card-title style="font-size: 16pt">Fach 1</mat-card-title>
+        <mat-card-subtitle style="font-size: 15pt;">Karte 1 / 20</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p style="font-size: 13pt">
+          Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+          sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+          Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+          sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <form>
+          <mat-form-field style="width: 90%">
+            <input matInput placeholder="Antwort">
+          </mat-form-field>
+          <button mat-raised-button type="button">Überspringen</button>
+          <button mat-raised-button color="primary" type="submit">Beantworten</button>
+        </form>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+
+<!-- TODO: Adjust mobile style -->
+<table style="margin-left: 5%; position: fixed; bottom: 0; height: 10%; width: 80%">
+  <tr>
+    <td *ngFor="let i of range(0, 4)">
+      <mat-card style="margin-right: 1em">
+        <mat-card-header>
+          <mat-card-title>Fach {{i+1}}</mat-card-title>
+          <mat-card-subtitle>20 Karteikarten</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+          <button mat-raised-button>Lernen</button>
+        </mat-card-actions>
+      </mat-card>
+    </td>
+  </tr>
+</table>

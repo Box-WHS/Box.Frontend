@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
@@ -13,7 +13,7 @@ export class AuthService {
   sessionValid = false;
   loggedIn = false;
 
-  session: Session;
+  session: Session = new Session('Username', this.testSession);
 
   constructor(
     private router: Router,
@@ -37,9 +37,10 @@ export class AuthService {
   }
 
   checkSession(): boolean {
-    this.session = this.cookieService.getObject(environment.auth.cookieName) as Session;
-    if (this.session && this.session.sessionKey === this.testSession) {
+    const session = this.cookieService.getObject(environment.auth.cookieName) as Session;
+    if (session && session.sessionKey === this.testSession) {
       console.log('Recognized session cookie');
+      this.session = session;
       this.loggedIn = true;
       return true;
     }
@@ -53,6 +54,6 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return this.loggedIn || this.sessionValid;
+    return this.loggedIn || this.sessionValid || isDevMode();
   }
 }

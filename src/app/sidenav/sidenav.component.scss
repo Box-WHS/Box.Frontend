@@ -1,3 +1,7 @@
+mat-toolbar-row {
+  transition: color 0.2s ease;
+}
+
 mat-toolbar-row:hover {
   color: #808080;
   cursor: pointer;

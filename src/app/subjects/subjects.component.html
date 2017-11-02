@@ -1,9 +1,17 @@
 <div class="app-container outer-spacer">
   <h1>Deine Fächer</h1>
   <mat-table matSort [dataSource]="dataSource">
-    <ng-container matColumnDef="">
+    <ng-container matColumnDef="subject">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Fach</mat-header-cell>
-      <mat-cell>Test</mat-cell>
+      <mat-cell *matCellDef="let row;">{{row.name}}</mat-cell>
     </ng-container>
+
+    <ng-container matColumnDef="learnProgress">
+      <mat-header-cell *matHeaderCellDef>Lernfortschritt</mat-header-cell>
+      <mat-cell *matCellDef="let row;"><mat-progress-bar style="width: 50%" [value]="row.learnProgress"></mat-progress-bar></mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClick(row)"></mat-row>
   </mat-table>
 </div>
