@@ -4,41 +4,82 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 import { environment } from '../../environments/environment';
 import { Session } from './session';
+import { Http, Headers } from '@angular/http';
 
 @Injectable()
 export class AuthService {
-  readonly testSession = 'myAwesomeSessionKeyIsSoAwesome';
+  readonly loginSession = 'auth:sessionInfo';
+
+  // OAuth-settings
+  public get authServer(){
+    return 'http://localhost:4711';
+  }
+  public get tokenURL(){
+    return this.authServer + '/connect/token';
+  }
+  public get client(){
+    return 'box';
+  }
+  public get clientSecret(){
+    return 'secret';
+  }
 
   redirectUrl = '/';
   sessionValid = false;
   loggedIn = false;
 
-  session: Session = new Session('Username', this.testSession);
+  session: Session;
 
   constructor(
     private router: Router,
-    private cookieService: CookieService) {
+    private cookieService: CookieService,
+    private http: Http) {
     this.checkSession();
   }
 
   login(username: string, password: string): Observable<boolean> {
     return Observable.of(true).do(val => {
-      this.loggedIn = val;
-      console.log('Logged in');
+      // OAuth-Request to tokenserver
+      const headers = new Headers();
+      let token: string;
+      let tokenType: string;
+      let expiration: number;
+      headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
-      this.session = new Session(username, this.testSession);
+      const body = 'grant_type=password&username=' + username + '&password=' + password + '&scope=&client_id=' + this.client + '&client_secret=' + this.clientSecret;
+      this.http.post(this.tokenURL, body, { headers: headers })
+        .toPromise()
+        .then(response => {
+          // Granted, so let's save the data! => TODO:move to localStorage later!
+          token = response.json().access_token;
+          tokenType = response.json().token_type;
+          expiration = response.json().expires_in;
 
-      this.cookieService.putObject(environment.auth.cookieName, this.session, {
-        domain: environment.auth.domain,
-        secure: environment.auth.forceSecureConnection,
-        expires: new Date(new Date().getTime() + (24 * 60 * 60 * 1000 * environment.auth.expirationDays))
-      });
+          sessionStorage.setItem('access_token', token);
+          sessionStorage.setItem('token_type', tokenType);
+          sessionStorage.setItem('expires_in', expiration.toString());
+
+          this.loggedIn = true;
+          console.log('Logged in');
+
+          this.session = new Session(username, this.loginSession);                    // TODO: get username from id-server endpoint
+
+          this.cookieService.putObject(environment.auth.cookieName, this.session, {
+            domain: environment.auth.domain,
+            secure: environment.auth.forceSecureConnection,
+            expires: new Date(Date.now() + expiration)
+          });
+        })
+        .catch(error => {
+          console.log(error);
+          alert('Der Benutzername oder das Kennwort war falsch!');
+        });
     });
   }
 
   checkSession(): boolean {
     const session = this.cookieService.getObject(environment.auth.cookieName) as Session;
-    if (session && session.sessionKey === this.testSession) {
+    if (session && session.sessionKey === this.loginSession) {
       console.log('Recognized session cookie');
       this.session = session;
       this.loggedIn = true;
@@ -50,10 +91,15 @@ export class AuthService {
   logout(): void {
     this.loggedIn = false;
     this.cookieService.remove(environment.auth.cookieName);
+
+    sessionStorage.removeItem('access_token');
+    sessionStorage.removeItem('expires_in');
+    sessionStorage.removeItem('token_type');
+
     this.router.navigate(['/login']);
   }
 
   isLoggedIn(): boolean {
-    return this.loggedIn || this.sessionValid || isDevMode();
+    return this.loggedIn || this.sessionValid; // || isDevMode();
   }
 }
