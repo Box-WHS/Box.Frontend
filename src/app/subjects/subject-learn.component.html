@@ -1,36 +1,46 @@
-<div style="display: table; position: absolute; height: 70%; width: 100%; font-size: 14pt">
-  <div style="text-align: center; display: table-cell; vertical-align: middle">
-    <mat-card style="max-width: 60%; min-height: 50%; display: inline-block; margin-left: auto; margin-right: auto;">
+<div class="card-container-outer">
+  <div class="card-container-inner">
+    <mat-card class="card-container">
       <mat-card-header>
         <mat-card-title style="font-size: 16pt">Fach 1</mat-card-title>
         <mat-card-subtitle style="font-size: 15pt;">Karte 1 / 20</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
-        <p style="font-size: 13pt">
+        <p style="font-size: 13pt" *ngIf="!showAnswer; else solution">
           Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
           sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
           Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
           sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
         </p>
+        <ng-template #solution>
+          <span>Lösung</span>
+          <p>
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+          </p>
+        </ng-template>
       </mat-card-content>
       <mat-card-actions>
-        <form>
+        <form [formGroup]="answerForm" (submit)="answerSubmitted()" *ngIf="!showAnswer; else solutionForm">
           <mat-form-field style="width: 90%">
-            <input matInput placeholder="Antwort">
+            <input matInput formControlName="answer" placeholder="Antwort">
           </mat-form-field>
           <button mat-raised-button type="button">Überspringen</button>
           <button mat-raised-button color="primary" type="submit">Beantworten</button>
         </form>
+        <ng-template #solutionForm>
+          <button mat-raised-button type="button" (click)="answerReviewed(false)">Falsch</button>
+          <button mat-raised-button color="primary" type="button" (click)="answerReviewed(true)">Richtig</button>
+        </ng-template>
       </mat-card-actions>
     </mat-card>
   </div>
 </div>
 
 <!-- TODO: Adjust mobile style -->
-<table style="margin-left: 5%; position: fixed; bottom: 0; height: 10%; width: 80%">
+<table style="position: fixed; bottom: 0; margin-right: 5%; margin-left: 5%; height: 10%; width: 80%">
   <tr>
     <td *ngFor="let i of range(0, 4)">
-      <mat-card style="margin-right: 1em">
+      <mat-card style="margin-right: 1em;">
         <mat-card-header>
           <mat-card-title>Fach {{i+1}}</mat-card-title>
           <mat-card-subtitle>20 Karteikarten</mat-card-subtitle>
@@ -38,6 +48,14 @@
         <mat-card-actions>
           <button mat-raised-button>Lernen</button>
         </mat-card-actions>
+      </mat-card>
+    </td>
+    <td>
+      <mat-card style="height: 100%;">
+        <mat-card-header>
+          <mat-card-title>Gelernt</mat-card-title>
+          <mat-card-subtitle>20 Karteikarten</mat-card-subtitle>
+        </mat-card-header>
       </mat-card>
     </td>
   </tr>

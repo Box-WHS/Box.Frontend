@@ -1,23 +1,23 @@
 <ng-progress></ng-progress>
 <simple-notifications [options]="notificationOptions"></simple-notifications>
 
-<!--
 <div class="app-container-outer" *ngIf="!authService.isLoggedIn(); else loggedIn">
   <router-outlet></router-outlet>
 </div>
--->
 
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav [opened]="!windowRef.isMobile() ? true : sidenavOpened" [mode]="windowRef.isMobile() ? 'over': 'side'">
-    <app-sidebar></app-sidebar>
-  </mat-sidenav>
+<ng-template #loggedIn>
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav [opened]="!windowRef.isMobile() ? true : sidenavOpened" [mode]="windowRef.isMobile() ? 'over': 'side'">
+      <app-sidebar></app-sidebar>
+    </mat-sidenav>
 
-  <div class="sidenav-content-container">
-    <mat-toolbar color="primary">
-      <mat-icon *ngIf="windowRef.isMobile()" (click)="sidenavOpened = !sidenavOpened">menu</mat-icon>
-      <span *ngIf="windowRef.isMobile()">&nbsp;&nbsp;</span>
-      <span>{{pageTitle}}</span>
-    </mat-toolbar>
-    <router-outlet></router-outlet>
-  </div>
-</mat-sidenav-container>
+    <div class="sidenav-content-container">
+      <mat-toolbar color="primary">
+        <mat-icon *ngIf="windowRef.isMobile()" (click)="sidenavOpened = !sidenavOpened">menu</mat-icon>
+        <span *ngIf="windowRef.isMobile()">&nbsp;&nbsp;</span>
+        <span>{{pageTitle}}</span>
+      </mat-toolbar>
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-container>
+</ng-template>

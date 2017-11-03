@@ -1,18 +1,36 @@
 import { Component } from '@angular/core';
 import { AppComponent } from '../app.component';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   templateUrl: './subject-learn.component.html',
   styleUrls: ['./subject-learn.component.scss']
 })
 export class SubjectLearnComponent {
-  range = (min, max) => {
+
+  showAnswer = false;
+
+  answerForm = this.formBuilder.group({
+    answer: ['']
+  });
+
+  constructor(private formBuilder: FormBuilder) {
+    AppComponent.pageTitle = 'Fach Test lernen';
+  }
+
+  answerSubmitted() {
+    console.log(this.answerForm.controls.answer.value);
+    this.showAnswer = true;
+  }
+
+  answerReviewed(answerCorrect: boolean) {
+    this.showAnswer = false;
+    this.answerForm.controls.answer.setValue('');
+  }
+
+  public range(min, max): number[] {
     const a = [];
     for (let i = min; i <= max; i++) { a.push(i); }
     return a;
-  };
-
-  constructor() {
-    AppComponent.pageTitle = 'Fach Test lernen';
   }
 }

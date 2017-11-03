@@ -4,3 +4,24 @@
   height: 100%;
   bottom: 0;
 }
+
+.card-container-outer {
+  display: table;
+  position: absolute;
+  height: 70%;
+  width: 100%;
+}
+
+.card-container-inner {
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.card-container {
+  max-width: 60%;
+  min-height: 50%;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: 10%;
+}

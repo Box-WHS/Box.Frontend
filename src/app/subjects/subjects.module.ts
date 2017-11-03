@@ -6,6 +6,7 @@ import { SubjectDetailComponent } from './subject-detail.component';
 import { SubjectLearnComponent } from './subject-learn.component';
 import { CommonModule } from '@angular/common';
 import { SubjectEditComponent } from './subject-edit.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,8 @@ import { SubjectEditComponent } from './subject-edit.component';
   imports: [
     CommonModule,
     MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forChild([
       {
         path: '',

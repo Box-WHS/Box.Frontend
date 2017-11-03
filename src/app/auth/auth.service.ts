@@ -38,7 +38,7 @@ export class AuthService {
   }
 
   login(username: string, password: string): Observable<boolean> {
-    return Observable.of(true).do(val => {
+    return Observable.create(observer => {
       // OAuth-Request to tokenserver
       const headers = new Headers();
       let token: string;
@@ -69,10 +69,16 @@ export class AuthService {
             secure: environment.auth.forceSecureConnection,
             expires: new Date(Date.now() + expiration)
           });
+
+          observer.next(true);
+          observer.complete();
         })
         .catch(error => {
+          this.loggedIn = false;
           console.log(error);
-          alert('Der Benutzername oder das Kennwort war falsch!');
+
+          observer.next(false);
+          observer.complete();
         });
     });
   }
@@ -100,6 +106,6 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return this.loggedIn || this.sessionValid; // || isDevMode();
+    return this.loggedIn || this.sessionValid || isDevMode();
   }
 }
