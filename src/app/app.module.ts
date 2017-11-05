@@ -18,6 +18,7 @@ import { CookieModule } from 'ngx-cookie';
 import { WindowRef } from './window-ref';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { LogoutComponent } from './auth/logout.component';
+import { StorageModule } from './storage/storage.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { LogoutComponent } from './auth/logout.component';
     BrowserModule,
     FormsModule,
     HttpModule,
+    StorageModule,
     BrowserAnimationsModule,
     MaterialModule,
     NgProgressModule,

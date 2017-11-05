@@ -1,0 +1,15 @@
+<div class="storage-notification-container" [@messageState]="messageSuppressed">
+  <table class="storage-notification-table">
+    <tr>
+      <td>
+        Wir speichern ein paar Daten in deinem Browser, um dir den Umgang mit der Box einfacher zu machen. Was sagst du dazu?
+      </td>
+      <td>
+        <button mat-raised-button color="primary" (click)="onAcceptButtonClicked()">Find ich gut</button>
+      </td>
+      <td>
+        <button mat-raised-button color="primary" (click)="onDisagreeButtonClicked()">Lieber nicht</button>
+      </td>
+    </tr>
+  </table>
+</div>

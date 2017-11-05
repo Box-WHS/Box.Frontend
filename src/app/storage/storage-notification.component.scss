@@ -1,0 +1,24 @@
+@import '~@angular/material/theming';
+
+.storage-notification-container {
+  position: absolute;
+  bottom: 0;
+  height: 10%;
+  left: 0;
+  width: 100%;
+  background: mat-color(mat-palette($mat-indigo));
+  color: whitesmoke;
+  font-family: "Roboto", "Helvetica Neue", sans-serif;
+  z-index: 99999;
+  text-align: center;
+}
+
+.storage-notification-table {
+  padding: 1em;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+td {
+  padding-right: 2em;
+}
