@@ -9,10 +9,10 @@ import { animate, keyframes, state, style, transition, trigger } from '@angular/
   animations: [
     trigger('messageState', [
       state('1', style({
-        transform: 'translateY(100%)'
+        transform: 'translateY(0%)'
       })),
       state('0', style({
-        transform: 'translateY(0%)'
+        transform: 'translateY(100%)'
       })),
       transition('0 => 1', animate(200, keyframes([
         style({transform: 'translateY(100%)', offset: 1})

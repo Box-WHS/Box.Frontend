@@ -1,4 +1,4 @@
 export class Session {
-  constructor(public username: string, public sessionKey: string) {
+  constructor(public token: string, public tokenType: string, public expiration: number) {
   }
 }
