@@ -2,6 +2,7 @@
   <div class="inner-center">
     <h1>Tritt der Box bei</h1>
     <p>Blub.</p>
+    <!--
     <form [formGroup]="registerForm" (submit)="onSubmit()">
       <section>
         <mat-form-field>
@@ -24,14 +25,22 @@
           <input matInput formControlName="passwordConfirm" placeholder="Passwort bestätigen" type="password" maxlength="64">
           <mat-error *ngIf="registerForm.controls.password.errors">Das Passwort fehlt</mat-error>
         </mat-form-field>
-        <mat-form-field>
-          <input matInput formControlName="firstName" placeholder="Vorname" type="text" maxlength="64">
-          <mat-error *ngIf="registerForm.controls.firstName.errors">Der Vorname fehlt</mat-error>
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput formControlName="lastName" placeholder="Nachnahme" type="text" maxlength="64">
-          <mat-error *ngIf="registerForm.controls.lastName.errors">Der Nachname fehlt</mat-error>
-        </mat-form-field>
+        <table>
+          <tr>
+            <td>
+              <mat-form-field>
+                <input matInput formControlName="firstName" placeholder="Vorname" type="text" maxlength="64">
+                <mat-error *ngIf="registerForm.controls.firstName.errors">Der Vorname fehlt</mat-error>
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput formControlName="lastName" placeholder="Nachname" type="text" maxlength="64">
+                <mat-error *ngIf="registerForm.controls.lastName.errors">Der Nachname fehlt</mat-error>
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
       </section>
       <section>
         <table width="80%" align="center">
@@ -65,6 +74,73 @@
         </table>
       </section>
     </form>
+    -->
+
+    <mat-horizontal-stepper [linear]="true">
+      <mat-step [stepControl]="dataForm">
+        <form [formGroup]="dataForm">
+          <ng-template matStepLabel>Sag uns wer du bist</ng-template>
+          <mat-form-field>
+            <input matInput formControlName="username" placeholder="Nutzername" type="search" maxlength="64">
+            <mat-error *ngIf="dataForm.controls.username.errors">Der Nutzername fehlt</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput formControlName="firstName" placeholder="Vorname" type="text" maxlength="64">
+            <mat-error *ngIf="dataForm.controls.firstName.errors">Der Vorname fehlt</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput formControlName="lastName" placeholder="Nachname" type="text" maxlength="64">
+            <mat-error *ngIf="dataForm.controls.lastName.errors">Der Nachname fehlt</mat-error>
+          </mat-form-field>
+          <div>
+            <button mat-raised-button matStepperNext color="primary">Nächster Schritt</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="emailForm">
+        <form [formGroup]="emailForm">
+          <ng-template matStepLabel>Verrate uns deine E-Mail</ng-template>
+          <mat-form-field>
+            <input matInput email formControlName="email" placeholder="E-Mail" type="email" maxlength="64">
+            <mat-error *ngIf="emailForm.controls.email.errors?.required">Du musst eine E-Mail angeben</mat-error>
+            <mat-error *ngIf="emailForm.controls.email.errors?.email">Die E-Mail ist nicht gültig</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput email formControlName="emailConfirm" placeholder="E-Mail bestätigen" type="email" maxlength="64">
+            <mat-error *ngIf="emailForm.controls.emailConfirm.errors?.emailNotMatching">Die E-Mails stimmen nicht überein</mat-error>
+          </mat-form-field>
+          <div>
+            <button mat-raised-button matStepperNext color="primary">Nächster Schritt</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="passwordForm">
+        <form [formGroup]="passwordForm">
+          <ng-template matStepLabel>Wähle ein Passwort</ng-template>
+          <mat-form-field>
+            <input matInput formControlName="password" placeholder="Passwort" type="password" maxlength="64">
+            <mat-error *ngIf="passwordForm.controls.passwordConfirm.errors?.required">Das Passwort fehlt</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput formControlName="passwordConfirm" placeholder="Passwort bestätigen" type="password" maxlength="64">
+            <mat-error *ngIf="passwordForm.controls.passwordConfirm.errors?.passwordNotMatching">Die Passwörter stimmen nicht überein</mat-error>
+          </mat-form-field>
+          <div>
+            <button mat-raised-button matStepperNext color="primary" (click)="register()" type="button">Registrieren</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Fertig</ng-template>
+        Du hast dich erfolgreich registriert. Bitte bestätige deine E-Mail, bevor du dich das erste Mal einloggst.
+        <br/>
+        <br/>
+        <div>
+          <button mat-raised-button matStepperNext color="primary" [routerLink]="['../']">Anmelden</button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
   </div>
 </div>
 

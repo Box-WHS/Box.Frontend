@@ -70,15 +70,14 @@ export class AuthService {
     }
   }
 
-  async register(formGroup: any): Promise<boolean> {
+  async register(username: string, password: string, firstName: string, lastName: string, email: string): Promise<boolean> {
     const url = `${this.authServer}/register`;
     const data = {
-      username: formGroup.controls.username.value,
-      password: formGroup.controls.password.value,
-      firstName: formGroup.controls.firstName.value,
-      lastName: formGroup.controls.lastName.value,
-      email: formGroup.controls.email.value,
-      captcha: formGroup.controls.captcha.value
+      username: username,
+      password: password,
+      firstName: firstName,
+      lastName: lastName,
+      email: email
     };
 
     try {

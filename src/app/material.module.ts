@@ -28,6 +28,7 @@ import {
   MatSortModule,
   MatTableModule,
   MatTabsModule,
+  MatStepperModule,
   MatToolbarModule,
   MatTooltipModule
 } from '@angular/material';
@@ -62,6 +63,7 @@ import {
     MatSortModule,
     MatTableModule,
     MatTabsModule,
+    MatStepperModule,
     MatToolbarModule,
     MatTooltipModule
   ],
@@ -94,6 +96,7 @@ import {
     MatSortModule,
     MatTableModule,
     MatTabsModule,
+    MatStepperModule,
     MatToolbarModule,
     MatTooltipModule
   ],
