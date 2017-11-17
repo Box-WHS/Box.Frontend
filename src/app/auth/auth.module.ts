@@ -8,7 +8,6 @@ import { PasswordResetComponent } from './password-reset.component';
 import { CaptchaComponent } from './captcha.component';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { RegisterComponent } from './register.component';
-import { CookieModule } from 'ngx-cookie';
 
 @NgModule({
   declarations: [
@@ -23,7 +22,6 @@ import { CookieModule } from 'ngx-cookie';
     FormsModule,
     MaterialModule,
     RecaptchaModule.forRoot(),
-    CookieModule.forChild(),
     RouterModule.forChild([
       {
         path: '',

@@ -14,7 +14,6 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { AuthService } from './auth/auth.service';
 import { UserGuard } from './auth/user.guard';
 import { NotificationsService } from 'angular2-notifications/dist';
-import { CookieModule } from 'ngx-cookie';
 import { WindowRef } from './window-ref';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { LogoutComponent } from './auth/logout.component';
@@ -36,7 +35,6 @@ import { StorageModule } from './storage/storage.module';
     MaterialModule,
     NgProgressModule,
     SimpleNotificationsModule.forRoot(),
-    CookieModule.forRoot(),
     RouterModule.forRoot([
       {
         path: '',
