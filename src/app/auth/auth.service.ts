@@ -28,12 +28,14 @@ export class AuthService {
   loggedIn = false;
 
   session: Session;
+  headers: Headers = new Headers();
 
   constructor(
     private router: Router,
     private storageService: StorageService,
     private http: Http) {
     this.checkSession();
+    this.headers.append('Content-Type', 'application/json');
   }
 
   async login(username: string, password: string): Promise<boolean> {
@@ -48,15 +50,16 @@ export class AuthService {
     try {
       const response = await this.http.post(this.tokenURL, body, { headers: headers }).toPromise();
 
-      // Granted, so let's save the data! => TODO:move to localStorage later!
+      // Granted, so let's save the data
       token = response.json().access_token;
       tokenType = response.json().token_type;
       expiration = response.json().expires_in;
+      console.log(response.json());
 
       this.loggedIn = true;
       console.log('Logged in');
 
-      this.session = new Session(token, tokenType, expiration);                    // TODO: get username from id-server endpoint
+      this.session = new Session(username, token, tokenType, expiration);
       this.storageService.setObject('box-session', this.session);
 
       return true;
@@ -79,7 +82,7 @@ export class AuthService {
     };
 
     try {
-      const response = await this.http.post(url, JSON.stringify(data)).toPromise();
+      const response = await this.http.post(url, JSON.stringify(data), { headers: this.headers }).toPromise();
       return response.status === 200;
     } catch (error) {
       console.log(error);

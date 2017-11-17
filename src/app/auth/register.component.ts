@@ -12,7 +12,11 @@ export class RegisterComponent {
   registerForm = this.formBuilder.group({
     username: ['', Validators.required],
     email: ['', [ Validators.required, Validators.email]],
+    emailConfirm: ['', [ Validators.required, Validators.email]],
     password: ['', Validators.required],
+    passwordConfirm: ['', Validators.required],
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
     captcha: ['', Validators.required]
   });
 
@@ -30,6 +34,7 @@ export class RegisterComponent {
   onSubmit(): void {
     this.notificationsService.success('Eine E-Mail mit weiteren Anweisungen wurde abgeschickt');
     this.router.navigate(['../']);
+    this.authService.register(this.registerForm);
   }
 
   onCaptchaResolved(response: string) {

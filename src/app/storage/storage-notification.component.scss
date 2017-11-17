@@ -4,12 +4,21 @@
   position: absolute;
   bottom: 0;
   height: 10%;
+  min-height: 70px;
   left: 0;
   width: 100%;
+  z-index: 99999;
+}
+
+.storage-notification-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: mat-color(mat-palette($mat-indigo));
   color: whitesmoke;
   font-family: "Roboto", "Helvetica Neue", sans-serif;
-  z-index: 99999;
   text-align: center;
 }
 

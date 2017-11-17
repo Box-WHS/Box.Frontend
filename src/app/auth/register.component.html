@@ -13,8 +13,24 @@
           <mat-error *ngIf="registerForm.controls.email.errors">Die E-Mail ist nicht gültig</mat-error>
         </mat-form-field>
         <mat-form-field>
+          <input matInput email formControlName="emailConfirm" placeholder="E-Mail bestätigen" type="email" maxlength="64">
+          <mat-error *ngIf="registerForm.controls.email.errors">Die E-Mail ist nicht gültig</mat-error>
+        </mat-form-field>
+        <mat-form-field>
           <input matInput formControlName="password" placeholder="Passwort" type="password" maxlength="64">
           <mat-error *ngIf="registerForm.controls.password.errors">Das Passwort fehlt</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput formControlName="passwordConfirm" placeholder="Passwort bestätigen" type="password" maxlength="64">
+          <mat-error *ngIf="registerForm.controls.password.errors">Das Passwort fehlt</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput formControlName="firstName" placeholder="Vorname" type="text" maxlength="64">
+          <mat-error *ngIf="registerForm.controls.firstName.errors">Der Vorname fehlt</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput formControlName="lastName" placeholder="Nachnahme" type="text" maxlength="64">
+          <mat-error *ngIf="registerForm.controls.lastName.errors">Der Nachname fehlt</mat-error>
         </mat-form-field>
       </section>
       <section>
