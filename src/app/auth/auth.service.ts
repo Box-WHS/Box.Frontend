@@ -95,7 +95,7 @@ export class AuthService {
       this.loggedIn = true;
       return true;
     }*/
-    return true;
+    return false;
   }
 
   logout(): void {
@@ -106,6 +106,6 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return this.loggedIn || this.sessionValid || isDevMode();
+    return this.loggedIn || this.sessionValid; // || isDevMode();
   }
 }

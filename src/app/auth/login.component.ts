@@ -28,7 +28,7 @@ export class LoginComponent {
   onSubmit() {
     this.loginInProgress = true;
 
-    this.authService.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value).subscribe(loggedIn => {
+    this.authService.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value).then(loggedIn => {
       this.loginInProgress = false;
       if (loggedIn) {
         this.router.navigate([this.authService.redirectUrl]);
