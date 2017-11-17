@@ -1,7 +1,7 @@
 @import '~@angular/material/theming';
 
 .storage-notification-container {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   height: 10%;
   min-height: 70px;

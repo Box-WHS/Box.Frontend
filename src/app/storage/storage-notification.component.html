@@ -1,5 +1,5 @@
-<div class="storage-notification-container">
-  <div class="storage-notification-layer" [hidden]="messageSuppressed">
+<div class="storage-notification-container" [@messageState]="messageSuppressed">
+  <div class="storage-notification-layer">
     <table class="storage-notification-table" >
       <tr>
         <td>
