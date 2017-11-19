@@ -6,9 +6,7 @@
 export const environment = {
   production: false,
   auth: {
-    forceSecureConnection: false,
-    cookieName: 'Box_Session',
-    expirationDays: 9999,
-    domain: 'localhost'
+    authUrl: 'http://localhost:4711',
+    sessionStorageName: 'box-session'
   }
 };

@@ -7,15 +7,6 @@ import { StorageService } from '../storage/storage.service';
 
 @Injectable()
 export class AuthService {
-  readonly loginSession = 'auth:sessionInfo';
-
-  // OAuth-settings
-  public get authServer(){
-    return 'http://localhost:4711';
-  }
-  public get tokenURL(){
-    return this.authServer + '/connect/token';
-  }
   public get client(){
     return 'box';
   }
@@ -48,7 +39,7 @@ export class AuthService {
 
     const body = 'grant_type=password&username=' + username + '&password=' + password + '&scope=&client_id=' + this.client + '&client_secret=' + this.clientSecret;
     try {
-      const response = await this.http.post(this.tokenURL, body, { headers: headers }).toPromise();
+      const response = await this.http.post(environment.auth.authUrl + '/connect/token', body, { headers: headers }).toPromise();
 
       // Granted, so let's save the data
       token = response.json().access_token;
@@ -60,7 +51,7 @@ export class AuthService {
       console.log('Logged in');
 
       this.session = new Session(username, token, tokenType, expiration);
-      this.storageService.setObject('box-session', this.session);
+      this.storageService.setObject(environment.auth.sessionStorageName, this.session);
 
       return true;
     } catch (error) {
@@ -70,14 +61,15 @@ export class AuthService {
     }
   }
 
-  async register(username: string, password: string, firstName: string, lastName: string, email: string): Promise<boolean> {
-    const url = `${this.authServer}/register`;
+  async register(username: string, password: string, firstName: string, lastName: string, email: string, captcha: string): Promise<boolean> {
+    const url = `${environment.auth.authUrl}/register`;
     const data = {
       username: username,
       password: password,
       firstName: firstName,
       lastName: lastName,
-      email: email
+      email: email,
+      captcha: captcha
     };
 
     try {
