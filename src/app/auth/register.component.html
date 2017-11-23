@@ -2,7 +2,7 @@
   <div class="inner-center">
     <h1>Tritt der Box bei</h1>
     <p>Blub.</p>
-    <mat-horizontal-stepper [linear]="true" style="background: transparent">
+    <mat-horizontal-stepper [linear]="true" style="background: transparent; display: inherit; width: 60%">
       <mat-step [stepControl]="dataForm">
         <form [formGroup]="dataForm">
           <ng-template matStepLabel>Sag uns wer du bist</ng-template>
@@ -44,21 +44,33 @@
       <mat-step [stepControl]="passwordForm">
         <form [formGroup]="passwordForm">
           <ng-template matStepLabel>Wähle ein Passwort</ng-template>
+          <p>
+            Ein gutes Passwort besteht aus Großbuchstaben, Kleinbuchstaben, Zahlen und Sonderzeichen. Wir sind sehr um deine
+            Sicherheit bemüht, jedoch musst du uns dabei helfen und ein sicheres Passwort wählen.
+          </p>
           <mat-form-field>
             <input matInput formControlName="password" placeholder="Passwort" type="password" maxlength="64">
-            <mat-error *ngIf="passwordForm.controls.passwordConfirm.errors?.required">Bitte wähle ein Passwort</mat-error>
+            <mat-error *ngIf="passwordForm.controls.password.errors?.minlength">
+              Dein Passwort muss mindestens 6 Zeichen lang sein
+            </mat-error>
+            <mat-error *ngIf="passwordWeak">
+              Das Passwort ist nicht sicher genug
+            </mat-error>
           </mat-form-field>
+          <app-password-strength-indicator [minLength]="minPasswordLength" [password]="passwordForm.controls.password.value" (strengthCalculated)="onPasswordStrengthCalculated($event)" style="display: inline-block; width: 80%"></app-password-strength-indicator>
+
           <mat-form-field>
             <input matInput formControlName="passwordConfirm" placeholder="Passwort bestätigen" type="password" maxlength="64">
             <mat-error *ngIf="passwordForm.controls.passwordConfirm.errors?.passwordNotMatching">Die Passwörter stimmen nicht überein</mat-error>
           </mat-form-field>
           <div style="text-align: center">
+            <br/>
             <app-captcha (resolved)="onCaptchaResolved($event)" style="display: inline-block"></app-captcha>
             <mat-hint *ngIf="!captchaKey"><br/>Das Captcha muss gelöst sein</mat-hint>
           </div>
           <br/>
           <div>
-            <button mat-raised-button matStepperNext color="primary" (click)="register()" type="button">Jetzt Registrieren</button>
+            <button mat-raised-button matStepperNext color="primary" (click)="register()" type="button" [disabled]="!captchaKey">Jetzt Registrieren</button>
           </div>
         </form>
       </mat-step>

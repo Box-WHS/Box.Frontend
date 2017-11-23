@@ -7,6 +7,7 @@ export const environment = {
   production: false,
   auth: {
     authUrl: 'http://localhost:4711',
-    sessionStorageName: 'box-session'
+    sessionStorageName: 'box-session',
+    minPasswordLength: 6
   }
 };

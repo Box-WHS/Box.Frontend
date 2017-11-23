@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { NotificationsService } from 'angular2-notifications/dist';
+import { environment } from '../../environments/environment';
 
 @Component({
   templateUrl: './register.component.html',
@@ -20,18 +21,20 @@ export class RegisterComponent {
     email: ['', [ Validators.required, Validators.email]],
     emailConfirm: ''
   });
-  emailMatching = true;
 
   passwordForm = this.formBuilder.group({
-    password: ['', Validators.required],
+    password: ['', Validators.minLength(environment.auth.minPasswordLength)],
     passwordConfirm: ''
   });
-  passwordMatching = true;
+  passwordWeak = true;
+  minPasswordLength = environment.auth.minPasswordLength;
+
   captchaKey: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
+    private cdr: ChangeDetectorRef,
     private authService: AuthService) {
     if (authService.isLoggedIn()) {
       console.log('Is logged in');
@@ -54,6 +57,11 @@ export class RegisterComponent {
   }
 
   register(): void {
+    console.log(this.passwordForm.errors);
+    if (this.passwordForm.errors) {
+      return;
+    }
+
     this.authService.register(
       this.dataForm.controls.username.value,
       this.passwordForm.controls.password.value,
@@ -77,19 +85,20 @@ export class RegisterComponent {
   }
 
   checkMatchingPassword(): void {
-    if (this.passwordForm.controls.password.errors)  {
+    if (this.passwordForm.controls.password.errors || this.passwordWeak)  {
       return;
     }
 
     const matching = this.passwordForm.controls.password.value === this.passwordForm.controls.passwordConfirm.value;
-    if (!matching) {
-      this.passwordForm.controls.passwordConfirm.setErrors({'passwordNotMatching': !matching});
-    } else {
-      this.passwordForm.controls.passwordConfirm.setErrors(null);
-    }
+    this.passwordForm.controls.passwordConfirm.setErrors({'passwordNotMatching': !matching ? true : null});
   }
 
-  onCaptchaResolved(response: string) {
+  onCaptchaResolved(response: string): void {
     this.captchaKey = response;
+  }
+
+  onPasswordStrengthCalculated(strength: number): void {
+    this.passwordWeak = strength < 40;
+    this.cdr.detectChanges();
   }
 }

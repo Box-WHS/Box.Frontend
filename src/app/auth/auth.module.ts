@@ -8,12 +8,14 @@ import { PasswordResetComponent } from './password-reset.component';
 import { CaptchaComponent } from './captcha.component';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { RegisterComponent } from './register.component';
+import { PasswordStrengthIndicatorComponent } from './password-strength-indicator.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     PasswordResetComponent,
     CaptchaComponent,
+    PasswordStrengthIndicatorComponent,
     RegisterComponent
   ],
   imports: [
