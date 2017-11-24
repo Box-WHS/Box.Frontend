@@ -1,14 +1,14 @@
 <div class="app-container center outer-center">
   <div class="inner-center">
     <h1>Tritt der Box bei</h1>
-    <p>Blub.</p>
+    <p>Registriere dich noch heute. Wieso? Weil die Box sehr gut ist.</p>
     <mat-horizontal-stepper [linear]="true" style="background: transparent; display: inherit; width: 60%">
       <mat-step [stepControl]="dataForm">
         <form [formGroup]="dataForm">
           <ng-template matStepLabel>Sag uns wer du bist</ng-template>
           <mat-form-field>
-            <input matInput formControlName="username" placeholder="Nutzername" type="search" maxlength="64">
-            <mat-error *ngIf="dataForm.controls.username.errors">Bitte gib einen Nutzernamen an</mat-error>
+            <input #username matInput formControlName="username" placeholder="Nutzername" type="search" maxlength="64">
+            <p *ngIf="dataForm.controls.username.errors?.required">Bitte gib einen Nutzernamen an</p>
           </mat-form-field>
           <mat-form-field>
             <input matInput formControlName="firstName" placeholder="Vorname" type="text" maxlength="64">
@@ -19,7 +19,7 @@
             <mat-error *ngIf="dataForm.controls.lastName.errors">Bitte gib deinen Nachnamen an</mat-error>
           </mat-form-field>
           <div>
-            <button mat-raised-button matStepperNext color="primary">Nächster Schritt</button>
+            <button mat-raised-button matStepperNext (click)="email.focus()" color="primary">Nächster Schritt</button>
           </div>
         </form>
       </mat-step>
