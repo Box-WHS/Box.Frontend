@@ -2,7 +2,7 @@
   <div class="inner-center">
     <h1>Tritt der Box bei</h1>
     <p>Registriere dich noch heute. Wieso? Weil die Box sehr gut ist.</p>
-    <mat-horizontal-stepper [linear]="true" style="background: transparent; display: inherit; width: 60%">
+    <mat-horizontal-stepper #stepper [linear]="true" style="background: transparent; display: inherit; width: 60%">
       <mat-step [stepControl]="dataForm">
         <form [formGroup]="dataForm">
           <ng-template matStepLabel>Sag uns wer du bist</ng-template>

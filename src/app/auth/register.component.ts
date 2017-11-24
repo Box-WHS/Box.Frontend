@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
@@ -10,6 +10,7 @@ import { environment } from '../../environments/environment';
   styleUrls: [ './register.component.scss' ]
 })
 export class RegisterComponent {
+  @ViewChild('stepper') stepper: ElementRef;
 
   dataForm = this.formBuilder.group({
     username: ['', Validators.required],
@@ -69,6 +70,7 @@ export class RegisterComponent {
       this.dataForm.controls.lastName.value,
       this.emailForm.controls.email.value,
       this.captchaKey);
+    this.stepper.nativeElement.nex
   }
 
   checkMatchingEmail(): void {

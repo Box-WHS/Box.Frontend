@@ -74,6 +74,7 @@ export class AuthService {
 
     try {
       const response = await this.http.post(url, JSON.stringify(data), { headers: this.headers }).toPromise();
+      console.log(response.json());
       return response.status === 200;
     } catch (error) {
       console.log(error);
