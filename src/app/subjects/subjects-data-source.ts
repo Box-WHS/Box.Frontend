@@ -7,7 +7,8 @@ export class SubjectsDataSource extends DataSource<any> {
     return Observable.of(
       [
         { id: 0, name: 'Test', learnProgress: 50 },
-        { id: 1, name: 'Test123', learnProgress: 20 }
+        { id: 1, name: 'Test123', learnProgress: 20 },
+        { id: 2, name: 'Test3',earnProgress: 80}
       ]);
   }
   disconnect() {}

@@ -17,7 +17,23 @@
   min-height: 50%;
   display: inline-block;
   margin-right: auto;
-  height: 80%
+  height: 80%;
+  cursor: pointer;
+  text-align: center;
+
+}
+
+.mat-card-header{
+  display: inline;
+}
+
+.mat-card-title{
+  text-align: center;
+  display: inline-block;
+}
+
+.mat-card-subtitle{
+  text-align: center;
 }
 
 .td{
