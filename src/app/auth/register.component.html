@@ -8,7 +8,7 @@
           <ng-template matStepLabel>Sag uns wer du bist</ng-template>
           <mat-form-field>
             <input #username matInput formControlName="username" placeholder="Nutzername" type="search" maxlength="64">
-            <p *ngIf="dataForm.controls.username.errors?.required">Bitte gib einen Nutzernamen an</p>
+            <p *ngIf="dataForm.controls.username.errors?.required"></p>
           </mat-form-field>
           <mat-form-field>
             <input matInput formControlName="firstName" placeholder="Vorname" type="text" maxlength="64">

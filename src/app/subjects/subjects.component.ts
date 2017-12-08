@@ -3,6 +3,7 @@ import { SubjectsDataSource } from './subjects-data-source';
 import { Subject } from './subject';
 import { AppComponent } from '../app.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import {MatSort} from '@angular/material';
 
 @Component({
   templateUrl: './subjects.component.html',
