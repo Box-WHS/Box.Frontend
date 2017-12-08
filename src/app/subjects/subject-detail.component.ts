@@ -1,17 +1,43 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Subject } from './subject';
 import { AppComponent } from '../app.component';
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {SubjectsDataSource} from "./subjects-data-source";
+import {forEach} from "@angular/router/src/utils/collection";
+
+import 'rxjs/add/operator/map';
+
 
 @Component({
   templateUrl: './subject-detail.component.html',
   styleUrls: ['./subject-detail.component.scss']
 })
-export class SubjectDetailComponent {
-  subject: Subject = { id: 0, name: 'Test', learnProgress: 20 };
+export class SubjectDetailComponent implements OnInit, OnDestroy {
+  subject: Subject;
+  subjectDs: SubjectsDataSource | null;
+  subjects: Subject[];
 
-  constructor(private router: Router) {
-    AppComponent.pageTitle = `Fach ${this.subject.name}`;
+  constructor(private router: Router,
+              private route: ActivatedRoute) {
+    this.subjectDs = new SubjectsDataSource();
+    this.subjects = this.subjectDs.subjects;
+
+  }
+
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      const id = +params['id'];
+
+      console.log(id);
+
+      this.subject = this.subjects.find(sub => sub.id === id);
+      AppComponent.pageTitle = `Fach ${this.subject.name}`;
+      console.log(this.subject);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.route.params.subscribe().unsubscribe();
   }
 
   redirectToLearn() {

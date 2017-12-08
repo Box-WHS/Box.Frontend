@@ -1,4 +1,4 @@
-<table style="width: 100%; height: 90%">
+<table style="width: 100%; height: 90%" *ngIf="subject">
   <tr>
     <td>
       <div class="card-container-outer">
@@ -6,7 +6,7 @@
           <mat-card class="card-container" routerLink="learn">
             <mat-card-header>
               <mat-card-title style="font-size: 16pt">Lernen</mat-card-title>
-              <mat-card-subtitle style="font-size: 15pt;">Lerne das Set {{subject.id}}</mat-card-subtitle>
+              <mat-card-subtitle style="font-size: 15pt;">Lerne das Set {{subject.name}}</mat-card-subtitle>
               <!--subject.id only for test -->
             </mat-card-header>
           </mat-card>
