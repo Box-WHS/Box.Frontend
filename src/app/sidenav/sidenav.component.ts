@@ -31,9 +31,11 @@ export class SidenavComponent {
   constructor(
     private router: Router,
     @Host() private parent: AppComponent,
-    public authService: AuthService) {}
+    public authService: AuthService) {
+  }
 
   public navigate(link: string[]) {
+    console.log(this.router.url);
     this.router.navigate(link);
     this.parent.sidenavOpened = false;
   }

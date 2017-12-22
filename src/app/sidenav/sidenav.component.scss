@@ -5,6 +5,9 @@ mat-toolbar-row {
 }
 
 mat-toolbar-row:hover {
-  color: #808080;
+  color: #9d9d9d;
   cursor: pointer;
+}
+mat-toolbar-row.active {
+  color: black;
 }
