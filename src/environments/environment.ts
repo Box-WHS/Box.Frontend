@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   auth: {
-    authUrl: 'http://localhost:4711',
+    authUrl: 'http://localhost:8080/auth',
     sessionStorageName: 'box-session',
     minPasswordLength: 6
   }
