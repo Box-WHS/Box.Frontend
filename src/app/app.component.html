@@ -14,7 +14,7 @@
 
     <div class="sidenav-content-container">
       <mat-toolbar color="primary">
-        <mat-icon *ngIf="windowRef.isMobile()" (click)="sidenavOpened = !sidenavOpened">menu</mat-icon>
+        <mat-icon *ngIf="windowRef.isMobile()" (click)="sidenavOpened = !sidenavOpened" style="cursor:  pointer;">menu</mat-icon>
         <span *ngIf="windowRef.isMobile()">&nbsp;&nbsp;</span>
         <span>{{pageTitle}}</span>
       </mat-toolbar>

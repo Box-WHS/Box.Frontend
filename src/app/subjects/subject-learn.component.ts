@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component,trigger,} from '@angular/core';
 import { AppComponent } from '../app.component';
 import { FormBuilder } from '@angular/forms';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   templateUrl: './subject-learn.component.html',
@@ -14,7 +15,7 @@ export class SubjectLearnComponent {
     answer: ['']
   });
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,public snackBar: MatSnackBar) {
     AppComponent.pageTitle = 'Fach Test lernen';
   }
 
@@ -27,6 +28,7 @@ export class SubjectLearnComponent {
     this.showAnswer = false;
     this.answerForm.controls.answer.setValue('');
   }
+
 
   public range(min, max): number[] {
     const a = [];

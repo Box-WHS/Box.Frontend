@@ -1,7 +1,46 @@
-td {
-  margin: 5%;
+.card-container-outer {
+  display: inline;
+  position: relative;
   width: 50%;
+
+}
+
+.card-container-inner {
   text-align: center;
   vertical-align: middle;
-  cursor: pointer;
+  margin-left: 15%;
+  height: 100%;
+
 }
+
+.card-container {
+  width: 60%;
+  min-height: 50%;
+  display: inline-block;
+  margin-right: auto;
+  height: 80%;
+  cursor: pointer;
+  text-align: center;
+
+}
+
+.mat-card-header{
+  display: inline;
+}
+
+.mat-card-title{
+  font-size: 1.5rem;
+  text-align: center;
+  display: inline-block;
+}
+
+.mat-card-subtitle{
+  text-align: center;
+}
+
+.td{
+  padding-top: 1px;
+}
+
+
+

@@ -36,9 +36,19 @@
   </div>
 </div>
 
+<div class="exbutton" style="position:fixed;bottom: 0">
+
+</div>
+
+<div style="position: fixed; bottom: 0; margin-right: 5%; margin-left: 5%; height: 15%; width: 80%">
+  <button mat-icon-button color="primary" (click)="collapsed1=!collapsed1" style="margin-left: 45%">
+    <mat-icon aria-hidden="true" *ngIf="!collapsed1" >arrow_upwards</mat-icon>
+    <mat-icon aria-hidden="true" *ngIf="collapsed1" style="margin-bottom: 10px">arrow_downwards</mat-icon>
+  </button>
 <!-- TODO: Adjust mobile style -->
-<table style="position: fixed; bottom: 0; margin-right: 5%; margin-left: 5%; height: 10%; width: 80%">
-  <tr>
+
+<table *ngIf="collapsed1" style="margin-left: 15%">
+  <tr >
     <td *ngFor="let i of range(0, 4)">
       <mat-card style="margin-right: 1em;">
         <mat-card-header>
@@ -57,6 +67,6 @@
           <mat-card-subtitle>20 Karteikarten</mat-card-subtitle>
         </mat-card-header>
       </mat-card>
-    </td>
   </tr>
 </table>
+</div>

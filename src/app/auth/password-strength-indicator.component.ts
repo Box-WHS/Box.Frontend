@@ -63,7 +63,7 @@ export class PasswordStrengthIndicatorComponent {
         this.simplePasswords = data.text().split('\n');
       });
     } catch (error) {
-      // ignored
+      console.log(error);
     }
   }
 }
