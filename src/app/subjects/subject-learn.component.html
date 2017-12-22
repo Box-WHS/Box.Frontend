@@ -43,10 +43,10 @@
 <!-- TODO: Adjust mobile style -->
 
 <table style="position: fixed; bottom: 0; margin-right: 5%; margin-left: 5%; height: 10%; width: 80%">
-  <div class="expand">
+  <div class="expand" style="padding-left:  45%;">
     <tr>
       <td>
-        <button mat-icon-button color="primary" (click)="collapsed1=!collapsed1" style=" left: 1500%;" >
+        <button mat-icon-button color="primary" (click)="collapsed1=!collapsed1"  >
           <mat-icon aria-hidden="true" *ngIf="!collapsed1">arrow_upwards</mat-icon>
           <mat-icon aria-hidden="true" *ngIf="collapsed1">arrow_downwards</mat-icon>
 
@@ -56,6 +56,11 @@
   </div>
 
   <tr *ngIf="collapsed1">
+    <td>
+      <button mat-icon-button color="primary"   >
+        <mat-icon aria-hidden="true" >arrow_back</mat-icon>
+      </button>
+    </td>
     <td *ngFor="let i of range(0, 4)">
       <mat-card style="margin-right: 1em;">
         <mat-card-header>
@@ -74,6 +79,10 @@
           <mat-card-subtitle>20 Karteikarten</mat-card-subtitle>
         </mat-card-header>
       </mat-card>
+    <td>
+      <button mat-icon-button color="primary"   >
+        <mat-icon aria-hidden="true" >arrow_forward</mat-icon>
+      </button>
     </td>
   </tr>
 </table>
