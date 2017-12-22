@@ -35,7 +35,9 @@ export class RegisterComponent {
     private formBuilder: FormBuilder,
     private router: Router,
     private cdr: ChangeDetectorRef,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private notificationsService: NotificationsService,
+    ) {
     if (authService.isLoggedIn()) {
       console.log('Is logged in');
       this.router.navigate([this.authService.redirectUrl]);
@@ -68,7 +70,13 @@ export class RegisterComponent {
       this.dataForm.controls.firstName.value,
       this.dataForm.controls.lastName.value,
       this.emailForm.controls.email.value,
-      this.captchaKey);
+      this.captchaKey)
+      .then(response => {
+        this.router.navigate(['/login']);
+      })
+      .catch(error => {
+        this.notificationsService.error('Es ist ein unbekannter Fehler aufgetreten. Versuche es später noch einmal.');
+      });
   }
 
   checkMatchingEmail(): void {

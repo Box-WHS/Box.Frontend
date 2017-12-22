@@ -77,8 +77,8 @@ export class AuthService {
       return response.status === 200;
     } catch (error) {
       console.log(error);
+      throw error;
     }
-    return false;
   }
 
   checkSession(): boolean {
