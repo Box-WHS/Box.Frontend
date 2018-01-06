@@ -8,7 +8,7 @@
           <ng-template matStepLabel>Sag uns wer du bist</ng-template>
           <mat-form-field>
             <input #username matInput formControlName="username" placeholder="Nutzername" type="search" maxlength="64">
-            <p *ngIf="dataForm.controls.username.errors?.required"></p>
+            <mat-error *ngIf="dataForm.controls.username.errors?.required"></mat-error>
           </mat-form-field>
           <mat-form-field>
             <input matInput formControlName="firstName" placeholder="Vorname" type="text" maxlength="64">
@@ -19,6 +19,7 @@
             <mat-error *ngIf="dataForm.controls.lastName.errors">Bitte gib deinen Nachnamen an</mat-error>
           </mat-form-field>
           <div>
+            <button mat-raised-button type="button" [routerLink]="['../']">Zurück</button>
             <button mat-raised-button matStepperNext color="primary">Nächster Schritt</button>
           </div>
         </form>
@@ -34,9 +35,10 @@
           </mat-form-field>
           <mat-form-field>
             <input matInput email formControlName="emailConfirm" placeholder="E-Mail bestätigen" type="email" maxlength="64">
-            <mat-error *ngIf="emailForm.controls.emailConfirm.errors?.emailNotMatching">Die E-Mails stimmen nicht überein</mat-error>
+            <mat-error *ngIf="emailForm.controls.emailConfirm.errors?.equalTo">Die E-Mails stimmen nicht überein</mat-error>
           </mat-form-field>
           <div>
+            <button mat-raised-button type="button" [routerLink]="['../']">Zurück</button>
             <button mat-raised-button matStepperNext color="primary">Nächster Schritt</button>
           </div>
         </form>
@@ -61,7 +63,7 @@
 
           <mat-form-field>
             <input matInput formControlName="passwordConfirm" placeholder="Passwort bestätigen" type="password" maxlength="64">
-            <mat-error *ngIf="passwordForm.controls.passwordConfirm.errors?.passwordNotMatching">Die Passwörter stimmen nicht überein</mat-error>
+            <mat-error *ngIf="passwordForm.controls.passwordConfirm.errors?.equalTo">Die Passwörter stimmen nicht überein</mat-error>
           </mat-form-field>
           <div style="text-align: center">
             <br/>
@@ -70,6 +72,7 @@
           </div>
           <br/>
           <div>
+            <button mat-raised-button type="button" [routerLink]="['../']">Zurück</button>
             <button mat-raised-button matStepperNext color="primary" (click)="register()" type="button" [disabled]="!captchaKey">Jetzt Registrieren</button>
           </div>
         </form>
