@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormControl, ValidatorFn, Validators } fr
 import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from './auth.service';
+import { CustomValidators } from 'ng2-validation';
 
 @Component({
   templateUrl: './password-reset.component.html',
@@ -19,10 +20,12 @@ export class PasswordResetComponent implements OnInit {
     captcha: ['', Validators.required]
   });
 
+  private password = new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(32)]);
+  private passwordConfirm = new FormControl('', CustomValidators.equalTo(this.password));
   resetForm = this.formBuilder.group({
     key: ['', Validators.required],
-    password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(32)]],
-    passwordConfirm: ['', [Validators.required]]
+    password: this.password,
+    passwordConfirm: this.passwordConfirm
   });
 
   constructor(
