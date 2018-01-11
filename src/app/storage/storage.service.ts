@@ -1,14 +1,11 @@
-import { Injectable } from '@angular/core';
-
-class StoredItem {
-  constructor(public key: string, public data: any) {}
-}
+import { EventEmitter, Injectable, Output } from '@angular/core';
 
 @Injectable()
 export class StorageService {
-  private readonly localStorageAcceptedKey = 'box-local-storage-accepted';
+  @Output() acceptStatusChanged = new EventEmitter<boolean>();
+
+  private readonly localStorageAcceptedKey = 'box-storage-accepted';
   private storage: Storage = sessionStorage;
-  private sessionItems: StoredItem[] = [];
 
   constructor() {
     this.setStorage();
@@ -20,10 +17,6 @@ export class StorageService {
 
   public set(key: string, data: string): void {
     this.storage.setItem(key, data);
-
-    if (this.storage === sessionStorage) {
-      this.sessionItems.push(new StoredItem(key, data));
-    }
   }
 
   public getObject<T extends object>(key: string): T {
@@ -32,10 +25,6 @@ export class StorageService {
 
   public setObject(key: string, data: object): void {
     this.storage.setItem(key, JSON.stringify(data));
-
-    if (this.storage === sessionStorage) {
-      this.sessionItems.push(new StoredItem(key, data));
-    }
   }
 
   public remove(key: string): void {
@@ -50,19 +39,24 @@ export class StorageService {
   public setLocalStorageAccepted(accepted: boolean): void {
     if (accepted) {
       this.storage = localStorage;
-      sessionStorage.clear();
       localStorage.setItem(this.localStorageAcceptedKey, 'true');
-
-      this.sessionItems.forEach(item => {
-        if (typeof item.data === 'string') {
-          this.set(item.key, item.data);
-        } else {
-          this.setObject(item.key, item.data);
-        }
-      });
+      this.copyStorage(sessionStorage, localStorage);
+      sessionStorage.clear();
     } else {
+      localStorage.removeItem(this.localStorageAcceptedKey);
       this.storage = sessionStorage;
+      this.copyStorage(localStorage, sessionStorage);
       localStorage.clear();
+    }
+
+    this.acceptStatusChanged.emit(accepted);
+  }
+
+  private copyStorage(from: Storage, to: Storage): void {
+    for (let i = 0; i < from.length; i++) {
+      const key = from.key(i);
+      const data = from.getItem(key);
+      to.setItem(key, data);
     }
   }
 

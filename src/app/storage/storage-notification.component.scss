@@ -4,10 +4,19 @@
   position: fixed;
   bottom: 0;
   height: 10%;
-  min-height: 70px;
+  min-height: 60px;
+  max-height: 100px;
   left: 0;
   width: 100%;
   z-index: 99999;
+}
+
+@media only screen and (max-height: 900px) and (max-width: 1100px) {
+  .storage-notification-container {
+    height: 20%;
+    min-height: 100px;
+    max-height: 200px;
+  }
 }
 
 .storage-notification-layer {
@@ -20,14 +29,32 @@
   color: whitesmoke;
   font-family: "Roboto", "Helvetica Neue", sans-serif;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.storage-notification-table {
-  padding: 1em 1em 0 1em;
-  margin: 0 auto;
-  overflow: hidden;
+.content-table {
+  display: table;
 }
 
-td {
+.storage-message {
+  display: table-cell;
+  padding: 2em;
+}
+
+.storage-message-button {
+  display: table-cell;
   padding-right: 2em;
+}
+
+@media only screen and (max-width: 1100px)  {
+  .storage-message {
+    display: table-row;
+  }
+
+  .storage-message-button {
+    display: initial;
+  }
 }
