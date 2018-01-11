@@ -36,37 +36,35 @@
   </div>
 </div>
 
-<div class="exbutton" style="position:fixed;bottom: 0">
+<div style="position: fixed; bottom: 0; margin-right: 5%; margin-left: 5%; height: 27%; width: 80%; text-align: center;">
+  <div style="display: inline-block;" [@boxesState]="boxesMinimized">
+    <button mat-icon-button color="primary" (click)="boxesMinimized=!boxesMinimized" style="margin-bottom: 20px;">
+      <mat-icon aria-hidden="true" *ngIf="boxesMinimized" >arrow_upwards</mat-icon>
+      <mat-icon aria-hidden="true" *ngIf="!boxesMinimized">arrow_downwards</mat-icon>
+    </button>
 
-</div>
-
-<div style="position: fixed; bottom: 0; margin-right: 5%; margin-left: 5%; height: 15%; width: 80%">
-  <button mat-icon-button color="primary" (click)="collapsed1=!collapsed1" style="margin-left: 45%">
-    <mat-icon aria-hidden="true" *ngIf="!collapsed1" >arrow_upwards</mat-icon>
-    <mat-icon aria-hidden="true" *ngIf="collapsed1" style="margin-bottom: 10px">arrow_downwards</mat-icon>
-  </button>
-<!-- TODO: Adjust mobile style -->
-
-<table *ngIf="collapsed1" style="margin-left: 15%">
-  <tr >
-    <td *ngFor="let i of range(0, 4)">
-      <mat-card style="margin-right: 1em;">
-        <mat-card-header>
-          <mat-card-title>Fach {{i+1}}</mat-card-title>
-          <mat-card-subtitle>20 Karteikarten</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-actions>
-          <button mat-raised-button>Lernen</button>
-        </mat-card-actions>
-      </mat-card>
-    </td>
-    <td>
-      <mat-card style="height: 100%;">
-        <mat-card-header>
-          <mat-card-title>Gelernt</mat-card-title>
-          <mat-card-subtitle>20 Karteikarten</mat-card-subtitle>
-        </mat-card-header>
-      </mat-card>
-  </tr>
-</table>
+    <!-- TODO: Adjust mobile style -->
+    <table>
+      <tr>
+        <td *ngFor="let i of range(0, 4)">
+          <mat-card style="margin-right: 1em;">
+            <mat-card-header>
+              <mat-card-title>Fach {{i+1}}</mat-card-title>
+              <mat-card-subtitle>20 Karteikarten</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-actions>
+              <button mat-raised-button>Lernen</button>
+            </mat-card-actions>
+          </mat-card>
+        </td>
+        <td style="display: block">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>Gelernt</mat-card-title>
+              <mat-card-subtitle>20 Karteikarten</mat-card-subtitle>
+            </mat-card-header>
+          </mat-card>
+      </tr>
+    </table>
+  </div>
 </div>

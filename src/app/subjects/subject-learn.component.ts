@@ -1,18 +1,38 @@
-import { Component,trigger,} from '@angular/core';
+import { Component } from '@angular/core';
 import { AppComponent } from '../app.component';
 import { FormBuilder } from '@angular/forms';
 import {MatSnackBar} from '@angular/material';
+import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   templateUrl: './subject-learn.component.html',
-  styleUrls: ['./subject-learn.component.scss']
+  styleUrls: ['./subject-learn.component.scss'],
+  animations: [
+    trigger('boxesState', [
+      state('1', style({
+        transform: 'translateY(73%)'
+      })),
+      state('0', style({
+        transform: 'translateY(0%)'
+      })),
+      transition('0 => 1', animate(350, keyframes([
+        style({transform: 'translateY(86%)', offset: 0.5}),
+        style({transform: 'translateY(73%)', offset: 1})
+      ]))),
+      transition('1 => 0', animate(350, keyframes([
+        style({transform: 'translateY(-13%)', offset: 0.5}),
+        style({transform: 'translateY(0%)', offset: 1})
+      ])))
+    ])
+  ]
 })
 export class SubjectLearnComponent {
 
   showAnswer = false;
+  boxesMinimized = false;
 
   answerForm = this.formBuilder.group({
-    answer: ['']
+    answer: ''
   });
 
   constructor(private formBuilder: FormBuilder,public snackBar: MatSnackBar) {
