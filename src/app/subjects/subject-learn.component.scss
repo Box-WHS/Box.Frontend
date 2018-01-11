@@ -28,3 +28,41 @@
   margin-left: auto;
   margin-right: 10%;
 }
+
+.learn-card-title {
+  font-size: 16pt;
+}
+
+.learn-card-subtitle {
+  font-size: 15pt;
+}
+
+.learn-card-content {
+  font-size: 13pt;
+}
+
+.learn-card-answer-edit-field {
+  width: 90%;
+}
+
+.boxes-outer-container {
+  position: fixed;
+  bottom: 0;
+  margin-right: 5%;
+  margin-left: 5%;
+  height: 27%;
+  width: 80%;
+  text-align: center;
+}
+
+.boxes-inner-container {
+  display: inline-block;
+}
+
+.boxes-toggle-button {
+  margin-bottom: 20px;
+}
+
+.boxes-learned {
+  display: block;
+}

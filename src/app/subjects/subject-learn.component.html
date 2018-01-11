@@ -2,11 +2,11 @@
   <div class="card-container-inner">
     <mat-card class="card-container">
       <mat-card-header>
-        <mat-card-title style="font-size: 16pt">Fach 1</mat-card-title>
-        <mat-card-subtitle style="font-size: 15pt;">Karte 1 / 20</mat-card-subtitle>
+        <mat-card-title class="learn-card-title">Fach 1</mat-card-title>
+        <mat-card-subtitle class="learn-card-subtitle">Karte 1 / 20</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
-        <p style="font-size: 13pt" *ngIf="!showAnswer; else solution">
+        <p class="learn-card-content" *ngIf="!showAnswer; else solution">
           Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
           sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
           Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
@@ -21,7 +21,7 @@
       </mat-card-content>
       <mat-card-actions>
         <form [formGroup]="answerForm" (submit)="answerSubmitted()" *ngIf="!showAnswer; else solutionForm">
-          <mat-form-field style="width: 90%">
+          <mat-form-field class="learn-card-answer-edit-field">
             <input matInput formControlName="answer" placeholder="Antwort">
           </mat-form-field>
           <button mat-raised-button type="button">Überspringen</button>
@@ -36,9 +36,9 @@
   </div>
 </div>
 
-<div style="position: fixed; bottom: 0; margin-right: 5%; margin-left: 5%; height: 27%; width: 80%; text-align: center;">
-  <div style="display: inline-block;" [@boxesState]="boxesMinimized">
-    <button mat-icon-button color="primary" (click)="boxesMinimized=!boxesMinimized" style="margin-bottom: 20px;">
+<div class="boxes-outer-container">
+  <div class="boxes-inner-container" [@boxesState]="boxesMinimized">
+    <button mat-icon-button color="primary" (click)="boxesMinimized=!boxesMinimized" class="boxes-toggle-button">
       <mat-icon aria-hidden="true" *ngIf="boxesMinimized" >arrow_upwards</mat-icon>
       <mat-icon aria-hidden="true" *ngIf="!boxesMinimized">arrow_downwards</mat-icon>
     </button>
@@ -57,7 +57,7 @@
             </mat-card-actions>
           </mat-card>
         </td>
-        <td style="display: block">
+        <td class="boxes-learned">
           <mat-card>
             <mat-card-header>
               <mat-card-title>Gelernt</mat-card-title>
