@@ -44,10 +44,10 @@
     </button>
 
     <!-- TODO: Adjust mobile style -->
-    <table>
-      <tr>
-        <td *ngFor="let i of range(0, 4)">
-          <mat-card style="margin-right: 1em;">
+    <div class="boxes-table">
+      <div class="boxes-table-row-group">
+        <div class="boxes-table-row">
+          <mat-card *ngFor="let i of range(0, 4)" class="boxes-card">
             <mat-card-header>
               <mat-card-title>Fach {{i+1}}</mat-card-title>
               <mat-card-subtitle>20 Karteikarten</mat-card-subtitle>
@@ -56,15 +56,14 @@
               <button mat-raised-button>Lernen</button>
             </mat-card-actions>
           </mat-card>
-        </td>
-        <td class="boxes-learned">
-          <mat-card>
+          <mat-card class="boxes-card">
             <mat-card-header>
               <mat-card-title>Gelernt</mat-card-title>
               <mat-card-subtitle>20 Karteikarten</mat-card-subtitle>
             </mat-card-header>
           </mat-card>
-      </tr>
-    </table>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

@@ -45,12 +45,15 @@
   width: 90%;
 }
 
+/*
+  Boxes
+ */
 .boxes-outer-container {
   position: fixed;
   bottom: 0;
   margin-right: 5%;
   margin-left: 5%;
-  height: 13rem;
+  height: 14rem;
   width: 80%;
   text-align: center;
 }
@@ -63,6 +66,21 @@
   margin-bottom: 1rem;
 }
 
-.boxes-learned {
-  display: block;
+.boxes-table {
+  display: table;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 1em;
+}
+
+.boxes-table-row-group {
+  display: table-row-group;
+}
+
+.boxes-table-row {
+  display: table-row;
+}
+
+.boxes-card {
+  display: table-cell;
 }
