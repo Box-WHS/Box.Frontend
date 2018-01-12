@@ -38,7 +38,7 @@
 
 <div class="boxes-outer-container">
   <div class="boxes-inner-container" [@boxesState]="boxesMinimized">
-    <button mat-icon-button color="primary" (click)="boxesMinimized=!boxesMinimized" class="boxes-toggle-button">
+    <button mat-icon-button color="primary" (click)="toggleBoxes()" class="boxes-toggle-button">
       <mat-icon aria-hidden="true" *ngIf="boxesMinimized" >arrow_upwards</mat-icon>
       <mat-icon aria-hidden="true" *ngIf="!boxesMinimized">arrow_downwards</mat-icon>
     </button>

@@ -11,12 +11,24 @@ export class StorageService {
     this.setStorage();
   }
 
-  public get(key: string): string {
-    return this.storage.getItem(key);
+  public get(key: string, defaltValue: any = null): string {
+    return this.storage.getItem(key) || defaltValue;
+  }
+
+  public getBool(key: string, defaultValue: boolean = false): boolean {
+    if (!this.storage.getItem(key)) {
+      return defaultValue;
+    }
+
+    return this.storage.getItem(key) === 'true';
   }
 
   public set(key: string, data: string): void {
     this.storage.setItem(key, data);
+  }
+
+  public setBool(key: string, data: boolean): void {
+    this.storage.setItem(key, data ? 'true' : 'false');
   }
 
   public getObject<T extends object>(key: string): T {
@@ -39,7 +51,7 @@ export class StorageService {
   public setLocalStorageAccepted(accepted: boolean): void {
     if (accepted) {
       this.storage = localStorage;
-      localStorage.setItem(this.localStorageAcceptedKey, 'true');
+      this.setBool(this.localStorageAcceptedKey, true);
       this.copyStorage(sessionStorage, localStorage);
       sessionStorage.clear();
     } else {
