@@ -48,6 +48,10 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, auth
       {
         path: '',
         pathMatch: 'full',
+        redirectTo: 'dashboard'
+      },
+      {
+        path: 'dashboard',
         loadChildren: './dashboard/dashboard.module#DashboardModule',
         canLoad: [ UserGuard ]
       },

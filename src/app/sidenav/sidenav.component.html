@@ -16,7 +16,7 @@
     </button>
   </mat-menu>
 
-  <mat-toolbar-row *ngFor="let entry of entries" (click)="navigate(entry.routerLink)" [ngClass]="{'active': router.url === entry.routerLink[0]}">
+  <mat-toolbar-row *ngFor="let entry of entries" (click)="navigate(entry.routerLink)" [ngClass]="{'active': router.url.indexOf(entry.routerLink[0]) == 0 }">
     <mat-icon *ngIf="entry.icon">{{entry.icon}}</mat-icon>
     <span *ngIf="entry.icon">&nbsp;&nbsp;</span>
     <span>{{entry.title}}</span>

@@ -14,7 +14,7 @@ export class SidenavComponent {
     {
       title: 'Dashboard',
       icon: 'dashboard',
-      routerLink: ['/']
+      routerLink: ['/dashboard']
     },
     {
       title: 'Fächer',
