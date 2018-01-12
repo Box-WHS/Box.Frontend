@@ -1,4 +1,4 @@
-<mat-toolbar style="color: #212121; background: white">
+<mat-toolbar style="color: #212121; background: white; margin-right: 2rem">
   <mat-icon>
     account_circle
   </mat-icon>
@@ -19,6 +19,6 @@
   <mat-toolbar-row *ngFor="let entry of entries" (click)="navigate(entry.routerLink)" [ngClass]="{'active': router.url.indexOf(entry.routerLink[0]) == 0 }">
     <mat-icon *ngIf="entry.icon">{{entry.icon}}</mat-icon>
     <span *ngIf="entry.icon">&nbsp;&nbsp;</span>
-    <span>{{entry.title}}</span>
+    <span style="font-size: 1.2rem">{{entry.title}}</span>
   </mat-toolbar-row>
 </mat-toolbar>
