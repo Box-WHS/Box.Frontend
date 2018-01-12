@@ -1,35 +1,24 @@
-.bottom-box {
-  position: relative;
-  width: 10%;
-  height: 100%;
-  bottom: 0;
-
-}
+/*
+  Answer card
+ */
 
 .card-container-outer {
-  display: table;
-  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 70%;
-  width: 100%;
-  margin-bottom: 1%;
 }
 
 .card-container-inner {
   text-align: center;
-  display: table-cell;
-  vertical-align: middle;
-  padding-bottom: 5%;
+  width: 70%
 }
 
 .card-container {
-  max-width: 60%;
-  min-height: 50%;
-  display: inline-block;
-  margin-left: auto;
-  margin-right: 10%;
 }
 
 .learn-card-title {
+  text-align: left;
   font-size: 16pt;
 }
 
