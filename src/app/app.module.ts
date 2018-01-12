@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { BrowserXhr, HttpModule } from '@angular/http';
+import { BrowserXhr, Http, HttpModule, RequestOptions } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgProgressBrowserXhr, NgProgressInterceptor, NgProgressModule } from 'ngx-progressbar';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -18,6 +18,15 @@ import { WindowRef } from './window-ref';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { LogoutComponent } from './auth/logout.component';
 import { StorageModule } from './storage/storage.module';
+import { AuthConfig, AuthHttp } from 'angular2-jwt';
+
+export function authHttpServiceFactory(http: Http, options: RequestOptions, authService: AuthService) {
+  return new AuthHttp(new AuthConfig({
+    tokenName: 'token',
+    tokenGetter: (() => authService.session.token),
+    globalHeaders: [{'Content-Type': 'application/json'}],
+  }), http, options);
+}
 
 @NgModule({
   declarations: [
@@ -64,7 +73,12 @@ import { StorageModule } from './storage/storage.module';
     WindowRef,
     UserGuard,
     { provide: BrowserXhr, useClass: NgProgressBrowserXhr },
-    { provide: HTTP_INTERCEPTORS, useClass: NgProgressInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: NgProgressInterceptor, multi: true },
+    {
+      provide: AuthHttp,
+      useFactory: authHttpServiceFactory,
+      deps: [Http, RequestOptions, AuthService]
+    }
   ],
   bootstrap: [AppComponent]
 })

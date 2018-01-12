@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { Session } from './session';
 import { Http, Headers } from '@angular/http';
 import { StorageService } from '../storage/storage.service';
+import { JwtHelper } from 'angular2-jwt';
 
 @Injectable()
 export class AuthService {
@@ -46,6 +47,12 @@ export class AuthService {
       tokenType = response.json().token_type;
       expiration = response.json().expires_in;
       console.log(response.json());
+      const helper = new JwtHelper();
+      console.log(
+        helper.decodeToken(token),
+        helper.getTokenExpirationDate(token),
+        helper.isTokenExpired(token)
+      );
 
       this.loggedIn = true;
       console.log('Logged in');
