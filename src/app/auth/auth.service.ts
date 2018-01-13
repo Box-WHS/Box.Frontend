@@ -93,6 +93,7 @@ export class AuthService {
       this.session = session;
       this.loggedIn = true;
       console.log('Recognized session cookie');
+      console.log('Session will expire at ' + this.helper.getTokenExpirationDate(session.token).toLocaleString())
 
       return true;
     }
