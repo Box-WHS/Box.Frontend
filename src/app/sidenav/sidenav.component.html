@@ -3,7 +3,7 @@
     account_circle
   </mat-icon>
   <span *ngIf="authService.session">
-    &nbsp;&nbsp;{{authService.session.username}}
+    &nbsp;&nbsp;{{authService.session?.decodedToken?.preferred_username}}
   </span>
 
   <button mat-icon-button [matMenuTriggerFor]="menu">

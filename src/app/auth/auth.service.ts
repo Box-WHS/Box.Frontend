@@ -1,4 +1,4 @@
-import { Injectable, isDevMode } from '@angular/core';
+import { EventEmitter, Injectable, isDevMode, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { Session } from './session';
@@ -15,6 +15,8 @@ export class AuthService {
     return 'secret';
   }
 
+  @Output() onLogout = new EventEmitter();
+
   redirectUrl = '/';
   sessionValid = false;
   loggedIn = false;
@@ -26,16 +28,13 @@ export class AuthService {
     private router: Router,
     private storageService: StorageService,
     private http: Http) {
-    this.checkSession();
+    this.isSessionValid();
     this.headers.append('Content-Type', 'application/json');
   }
 
   async login(username: string, password: string): Promise<boolean> {
     // OAuth-Request to tokenserver
     const headers = new Headers();
-    let token: string;
-    let tokenType: string;
-    let expiration: number;
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
     const body = 'grant_type=password&username=' + username + '&password=' + password + '&scope=&client_id=' + this.client + '&client_secret=' + this.clientSecret;
@@ -43,22 +42,19 @@ export class AuthService {
       const response = await this.http.post(environment.auth.authUrl + '/connect/token', body, { headers: headers }).toPromise();
 
       // Granted, so let's save the data
-      token = response.json().access_token;
-      tokenType = response.json().token_type;
-      expiration = response.json().expires_in;
+      const token = response.json().access_token;
+      const tokenType = response.json().token_type;
       console.log(response.json());
+
       const helper = new JwtHelper();
-      console.log(
-        helper.decodeToken(token),
-        helper.getTokenExpirationDate(token),
-        helper.isTokenExpired(token)
-      );
+      const decodedToken = helper.decodeToken(token);
+
+      this.session = new Session(token, tokenType, decodedToken, helper.getTokenExpirationDate(token));
+      this.storageService.setObject(environment.auth.sessionStorageName, this.session);
+      console.log(this.session);
 
       this.loggedIn = true;
       console.log('Logged in');
-
-      this.session = new Session(username, token, tokenType, expiration);
-      this.storageService.setObject(environment.auth.sessionStorageName, this.session);
 
       return true;
     } catch (error) {
@@ -89,21 +85,27 @@ export class AuthService {
     }
   }
 
-  checkSession(): boolean {
-    /*const session = this.cookieService.getObject(environment.auth.cookieName) as Session;
-    if (session && session.sessionKey === this.loginSession) {
+  isSessionValid(): boolean {
+    const helper = new JwtHelper();
+    if (this.session && !helper.isTokenExpired(this.session.token)) {
+      return true;
+    }
+
+    const session = this.storageService.getObject(environment.auth.sessionStorageName) as Session;
+    if (session && !helper.isTokenExpired(session.token)) {
       console.log('Recognized session cookie');
       this.session = session;
       this.loggedIn = true;
       return true;
-    }*/
+    }
     return false;
   }
 
   logout(): void {
     this.loggedIn = false;
 
-    this.storageService.remove('box-session');
+    this.storageService.remove(environment.auth.sessionStorageName);
+    this.onLogout.emit();
     this.router.navigate(['/login']);
   }
 
