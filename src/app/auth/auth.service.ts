@@ -24,11 +24,12 @@ export class AuthService {
   session: Session;
   headers: Headers = new Headers();
 
+  private readonly helper = new JwtHelper();
+
   constructor(
     private router: Router,
     private storageService: StorageService,
     private http: Http) {
-    this.isSessionValid();
     this.headers.append('Content-Type', 'application/json');
   }
 
@@ -46,10 +47,7 @@ export class AuthService {
       const tokenType = response.json().token_type;
       console.log(response.json());
 
-      const helper = new JwtHelper();
-      const decodedToken = helper.decodeToken(token);
-
-      this.session = new Session(token, tokenType, decodedToken, helper.getTokenExpirationDate(token));
+      this.session = new Session(token, tokenType, this.helper.decodeToken(token));
       this.storageService.setObject(environment.auth.sessionStorageName, this.session);
       console.log(this.session);
 
@@ -86,16 +84,16 @@ export class AuthService {
   }
 
   isSessionValid(): boolean {
-    const helper = new JwtHelper();
-    if (this.session && !helper.isTokenExpired(this.session.token)) {
+    if (this.session && !this.helper.isTokenExpired(this.session.token)) {
       return true;
     }
 
     const session = this.storageService.getObject(environment.auth.sessionStorageName) as Session;
-    if (session && !helper.isTokenExpired(session.token)) {
-      console.log('Recognized session cookie');
+    if (session && !this.helper.isTokenExpired(session.token)) {
       this.session = session;
       this.loggedIn = true;
+      console.log('Recognized session cookie');
+
       return true;
     }
     return false;
@@ -103,13 +101,13 @@ export class AuthService {
 
   logout(): void {
     this.loggedIn = false;
-
     this.storageService.remove(environment.auth.sessionStorageName);
-    this.onLogout.emit();
     this.router.navigate(['/login']);
+
+    this.onLogout.emit();
   }
 
   isLoggedIn(): boolean {
-    return this.loggedIn || this.sessionValid; // || isDevMode();
+    return this.loggedIn || this.sessionValid;
   }
 }
