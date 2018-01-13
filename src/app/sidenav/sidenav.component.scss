@@ -1,13 +1,25 @@
-mat-toolbar-row {
+.sidebar {
+  color: #212121;
+  background: white;
+  margin-right: 3rem;
+  height: 100%;
+}
+
+.sidebar-entry {
   transition: color 0.2s ease;
   color: #6b6b6b;
   font-size: 0.8rem;
+
+  &.active {
+    color: black;
+  }
+}
+
+.sidebar-entry-content {
+  font-size: 1.3rem;
 }
 
 mat-toolbar-row:hover {
   color: #9d9d9d;
   cursor: pointer;
-}
-mat-toolbar-row.active {
-  color: black;
 }
