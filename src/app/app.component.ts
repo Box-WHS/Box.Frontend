@@ -1,15 +1,17 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 import { AuthService } from './auth/auth.service';
 import { WindowRef } from './window-ref';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
-import { StorageService } from './storage/storage.service';
+
 
 @Component({
   selector: 'app-root',
+  providers: [Location],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
@@ -27,10 +29,16 @@ export class AppComponent {
 
   constructor(
     public authService: AuthService,
-    public windowRef: WindowRef) {
+    public windowRef: WindowRef,
+    public router: Router,
+    private location: Location) {
   }
 
   get pageTitle() {
     return AppComponent.pageTitle;
+  }
+
+  public navigateBack(): void {
+    this.location.back();
   }
 }

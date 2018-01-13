@@ -35,7 +35,6 @@ export class SidenavComponent {
   }
 
   public navigate(link: string[]) {
-    console.log(this.router.url);
     this.router.navigate(link);
     this.parent.sidenavOpened = false;
   }

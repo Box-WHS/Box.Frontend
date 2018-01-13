@@ -14,9 +14,12 @@
 
     <div class="sidenav-content-container">
       <mat-toolbar color="primary">
-        <mat-icon *ngIf="windowRef.isMobile()" (click)="sidenavOpened = !sidenavOpened" style="cursor:  pointer;">menu</mat-icon>
+        <mat-icon *ngIf="windowRef.isMobile()" (click)="sidenavOpened = !sidenavOpened" style="cursor: pointer;">menu</mat-icon>
         <span *ngIf="windowRef.isMobile()">&nbsp;&nbsp;</span>
-        <span>{{pageTitle}}</span>
+        <button mat-icon-button (click)="navigateBack()" *ngIf="router.url.indexOf('/dashboard') != 0">
+          <mat-icon aria-hidden="true" style="transform: rotate(-90deg)">arrow_upwards</mat-icon>
+        </button>
+        <span style="margin-left: 0.5rem;">{{pageTitle}}</span>
       </mat-toolbar>
       <router-outlet></router-outlet>
     </div>
