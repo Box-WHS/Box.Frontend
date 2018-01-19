@@ -28,14 +28,7 @@ export class SidenavComponent {
     }
   ];
 
-  constructor(
-    private router: Router,
-    @Host() private parent: AppComponent,
+  constructor(@Host() private parent: AppComponent,
     public authService: AuthService) {
-  }
-
-  public navigate(link: string[]) {
-    this.router.navigate(link);
-    this.parent.sidenavOpened = false;
   }
 }

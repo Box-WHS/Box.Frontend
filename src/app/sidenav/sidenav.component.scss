@@ -13,6 +13,10 @@
   &.active {
     color: black;
   }
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .sidebar-entry-content {
