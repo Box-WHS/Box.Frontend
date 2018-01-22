@@ -84,6 +84,7 @@ export class AuthService {
   }
 
   isSessionValid(): boolean {
+    console.log('Test');
     if (this.session && !this.helper.isTokenExpired(this.session.token)) {
       return true;
     }
@@ -93,7 +94,7 @@ export class AuthService {
       this.session = session;
       this.loggedIn = true;
       console.log('Recognized session cookie');
-      console.log('Session will expire at ' + this.helper.getTokenExpirationDate(session.token).toLocaleString())
+      console.log('Session will expire at ' + this.helper.getTokenExpirationDate(session.token).toLocaleString());
 
       return true;
     }

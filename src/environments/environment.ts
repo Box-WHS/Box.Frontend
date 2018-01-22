@@ -9,5 +9,8 @@ export const environment = {
     authUrl: 'http://localhost:8080/auth',
     sessionStorageName: 'box-session',
     minPasswordLength: 6
+  },
+  api: {
+    apiUrl: 'http://localhost:8080/api'
   }
 };

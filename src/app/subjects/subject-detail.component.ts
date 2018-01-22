@@ -6,6 +6,7 @@ import {SubjectsDataSource} from "./subjects-data-source";
 import {forEach} from "@angular/router/src/utils/collection";
 
 import 'rxjs/add/operator/map';
+import { SubjectService } from './subject.service';
 
 
 @Component({
@@ -18,10 +19,9 @@ export class SubjectDetailComponent implements OnInit, OnDestroy {
   subjects: Subject[];
 
   constructor(private router: Router,
-              private route: ActivatedRoute) {
-    this.subjectDs = new SubjectsDataSource();
-    this.subjects = this.subjectDs.subjects;
-
+              private route: ActivatedRoute, private subjectService: SubjectService) {
+    this.subjectDs = new SubjectsDataSource(subjectService);
+    // this.subjects = this.subjectDs.subjects;
   }
 
   ngOnInit(): void {
