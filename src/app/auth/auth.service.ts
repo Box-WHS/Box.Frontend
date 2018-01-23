@@ -84,7 +84,6 @@ export class AuthService {
   }
 
   isSessionValid(): boolean {
-    console.log('Test');
     if (this.session && !this.helper.isTokenExpired(this.session.token)) {
       return true;
     }

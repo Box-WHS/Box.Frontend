@@ -4,7 +4,7 @@ import { Subject } from './subject';
 import { AppComponent } from '../app.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import {MatSort} from '@angular/material';
-import { SubjectService } from './subject.service';
+import { SubjectsService } from './subjects.service';
 
 @Component({
   templateUrl: './subjects.component.html',
@@ -14,7 +14,7 @@ export class SubjectsComponent implements OnInit {
   displayedColumns = [ 'subject', 'learnProgress' ];
   dataSource: SubjectsDataSource | null;
 
-  constructor(private router: Router, private route: ActivatedRoute, private subjectsService: SubjectService) {
+  constructor(private router: Router, private route: ActivatedRoute, private subjectsService: SubjectsService) {
     AppComponent.pageTitle = 'Fächer';
   }
 

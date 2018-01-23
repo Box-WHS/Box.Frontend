@@ -7,7 +7,7 @@ import { SubjectLearnComponent } from './subject-learn.component';
 import { CommonModule } from '@angular/common';
 import { SubjectEditComponent } from './subject-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SubjectService } from './subject.service';
+import { SubjectsService } from './subjects.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +42,7 @@ import { SubjectService } from './subject.service';
     ])
   ],
   providers: [
-    SubjectService
+    SubjectsService
   ]
 })
 export class SubjectsModule {}
