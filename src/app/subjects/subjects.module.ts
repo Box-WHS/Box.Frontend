@@ -8,13 +8,15 @@ import { CommonModule } from '@angular/common';
 import { SubjectEditComponent } from './subject-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SubjectsService } from './subjects.service';
+import { SubjectCreateComponent } from './subject-create.component';
 
 @NgModule({
   declarations: [
     SubjectsComponent,
     SubjectDetailComponent,
     SubjectLearnComponent,
-    SubjectEditComponent
+    SubjectEditComponent,
+    SubjectCreateComponent
   ],
   imports: [
     CommonModule,
@@ -40,6 +42,9 @@ import { SubjectsService } from './subjects.service';
         component: SubjectEditComponent
       }
     ])
+  ],
+  entryComponents: [
+    SubjectCreateComponent
   ],
   providers: [
     SubjectsService

@@ -1,0 +1,14 @@
+<h2>Fach erstellen</h2>
+
+<form [formGroup]="createSubjectForm" (submit)="onSubmit()">
+  <mat-form-field>
+    <input [formControlName]="'name'" matInput placeholder="Name">
+    <mat-error *ngIf="createSubjectForm.controls.name.errors?.required">Du musst einen Namen angeben</mat-error>
+  </mat-form-field>
+  <div class="button-container-outer">
+    <div class="button-container-inner">
+      <button mat-raised-button type="button" (click)="onAbort()">Abbrechen</button>
+      <button mat-raised-button color="primary" type="submit">Fach erstellen</button>
+    </div>
+  </div>
+</form>
