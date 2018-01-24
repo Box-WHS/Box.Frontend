@@ -49,10 +49,10 @@
     <div class="boxes-table">
       <div class="boxes-table-row-group">
         <div class="boxes-table-row">
-          <mat-card *ngFor="let i of range(0, 4)" class="boxes-card">
+          <mat-card *ngFor="let tray of trays" class="boxes-card">
             <mat-card-header>
-              <mat-card-title>Fach {{i+1}}</mat-card-title>
-              <mat-card-subtitle>20 Karteikarten</mat-card-subtitle>
+              <mat-card-title>Fach {{tray.name}}</mat-card-title>
+              <mat-card-subtitle *ngIf="tray.cards">{{tray.cards.length}} Karteikarten</mat-card-subtitle>
             </mat-card-header>
             <mat-card-actions>
               <button mat-raised-button>Lernen</button>

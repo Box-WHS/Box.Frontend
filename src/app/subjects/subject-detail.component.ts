@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Subject } from './subject';
-import { AppComponent } from '../app.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SubjectsDataSource } from './subjects-data-source';
 import { SubjectsService } from './subjects.service';
 import 'rxjs/add/operator/map';
+import { AppComponent } from '../app.component';
 
 @Component({
   templateUrl: './subject-detail.component.html',
@@ -12,6 +12,7 @@ import 'rxjs/add/operator/map';
 })
 export class SubjectDetailComponent implements OnInit, OnDestroy {
   subjectDs: SubjectsDataSource;
+  public subject: Subject;
 
   constructor(private router: Router,
               private route: ActivatedRoute, private subjectService: SubjectsService) {
@@ -21,12 +22,9 @@ export class SubjectDetailComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const id = +params['id'];
-
-      this.subjectDs.subjects.subscribe(data => {
-        const result = data.find(sub => sub.id === id);
-        if (result) {
-          AppComponent.pageTitle = `Fach ${result.name}`;
-        }
+      this.subjectService.getSubject(id).subscribe(data => {
+        this.subject = data;
+        AppComponent.pageTitle = `Fach ${data.name}`;
       });
     });
   }

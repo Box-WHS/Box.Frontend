@@ -1,9 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../app.component';
 import { FormBuilder } from '@angular/forms';
 import {MatSnackBar} from '@angular/material';
 import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import { StorageService } from '../storage/storage.service';
+import { Tray } from './tray';
+import { Subject } from './subject';
+import { ActivatedRoute } from '@angular/router';
+import { SubjectsService } from './subjects.service';
 
 @Component({
   templateUrl: './subject-learn.component.html',
@@ -27,9 +31,11 @@ import { StorageService } from '../storage/storage.service';
     ])
   ]
 })
-export class SubjectLearnComponent {
+export class SubjectLearnComponent implements OnInit {
 
   readonly boxesMinimzedStorageKey = 'box-learn-boxes-minimized';
+  trays: Tray[] = [];
+  subject: Subject;
   showAnswer = false;
   boxesMinimized = this.storageService.getBool(this.boxesMinimzedStorageKey, false);
 
@@ -37,8 +43,21 @@ export class SubjectLearnComponent {
     answer: ''
   });
 
-  constructor(private formBuilder: FormBuilder, public storageService: StorageService) {
-    AppComponent.pageTitle = 'Fach Test lernen';
+  constructor(private formBuilder: FormBuilder,
+              public storageService: StorageService,
+              private route: ActivatedRoute,
+              private subjectsService: SubjectsService) {
+  }
+
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      const id = +params['id'];
+      this.subjectsService.getSubject(id).subscribe(subject => {
+        this.subject = subject;
+        AppComponent.pageTitle = `Fach ${subject.name} lernen`;
+        this.subjectsService.getTrays(subject).subscribe(trays => this.trays = trays);
+      });
+    });
   }
 
   answerSubmitted() {
