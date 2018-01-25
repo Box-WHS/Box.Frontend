@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AuthHttp } from 'angular2-jwt';
+import { AuthHttp, AuthHttpError } from 'angular2-jwt';
 import { Subject } from './subject';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Observable';
@@ -30,9 +30,18 @@ export class SubjectsService {
     });
   }
 
+  public editSubject(id: number, name: string): Observable<Subject> {
+    return this.http.put(`${environment.api.apiUrl}/Box`, { id: id, newName: name }).map(data => {
+      return data.json() as Subject;
+    }).catch(error => {
+      return this.handleError(error);
+    });
+  }
+
   public getTrays(subject: Subject): Observable<Tray[]> {
     return this.http.get(`${environment.api.apiUrl}/Box/${subject.id}/trays`).map(data => {
-      const result = data.json() as Tray[];
+      let result = data.json() as Tray[];
+      result = result.sort((a, b) => a.name.localeCompare(b.name));
       result.forEach(current => {
         this.getCards(current).subscribe(cards => current.cards = cards);
       });
@@ -75,7 +84,7 @@ export class SubjectsService {
   }
 
   private handleError(error): Observable<any> {
-    if (error.status === 401) {
+    if (error.status === 401 || typeof error === typeof AuthHttpError) {
       this.authService.logout();
     }
 

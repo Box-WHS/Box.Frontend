@@ -9,6 +9,7 @@ import { SubjectEditComponent } from './subject-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SubjectsService } from './subjects.service';
 import { SubjectCreateComponent } from './subject-create.component';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [

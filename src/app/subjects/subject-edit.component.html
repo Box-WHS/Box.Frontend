@@ -3,7 +3,7 @@
     <tr>
       <td>
         <mat-form-field style="width: 100%">
-          <input matInput placeholder="Name" value="Test">
+          <input matInput placeholder="Name" [(ngModel)]="subjectName" (blur)="changeSubjectName()">
         </mat-form-field>
       </td>
     </tr>

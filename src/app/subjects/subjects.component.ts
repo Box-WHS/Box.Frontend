@@ -36,6 +36,11 @@ export class SubjectsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.subjectsService.createSubject(result).subscribe(data => {
+          for (let i = 1; i <= 5; i++) {
+            this.subjectsService.createTray(data, `Fach ${i}`, '00:00:00').subscribe(tray => console.log(tray));
+          }
+          this.subjectsService.createTray(data, 'Gelernt', '00:00:00').subscribe(tray => console.log(tray));
+
           console.log(data);
           if (data) {
             this.router.navigate([`${data.id}`, 'edit'],  {relativeTo: this.route});
