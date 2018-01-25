@@ -19,6 +19,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { LogoutComponent } from './auth/logout.component';
 import { StorageModule } from './storage/storage.module';
 import { AuthConfig, AuthHttp } from 'angular2-jwt';
+import { ConfirmDialogComponent } from './misc/confirm-dialog.component';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions, authService: AuthService) {
   return new AuthHttp(new AuthConfig({
@@ -32,7 +33,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, auth
   declarations: [
     AppComponent,
     SidenavComponent,
-    LogoutComponent
+    LogoutComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     CommonModule,
@@ -71,6 +73,9 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, auth
         canLoad: [ UserGuard ]
       }
     ])
+  ],
+  entryComponents: [
+    ConfirmDialogComponent
   ],
   providers: [
     NotificationsService,

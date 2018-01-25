@@ -1,6 +1,4 @@
-import {
-  Component, OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../app.component';
 import { ActivatedRoute } from '@angular/router';
 import { SubjectsService } from './subjects.service';
@@ -8,9 +6,9 @@ import { Subject } from './subject';
 import { Tray } from './tray';
 import { Observable } from 'rxjs/Observable';
 import { Card } from './card';
-import { SubjectCreateComponent } from './subject-create.component';
 import { MatDialog } from '@angular/material';
 import { CardCreateComponent } from './card-create.component';
+import { ConfirmDialogComponent } from '../misc/confirm-dialog.component';
 
 @Component({
   templateUrl: './subject-edit.component.html',
@@ -54,7 +52,11 @@ export class SubjectEditComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-
+        this.subjectsService.createCard(this.trays[0], result.question, result.answer).subscribe(card => {
+          if (card) {
+            this.trays[0].cards.push(card);
+          }
+        });
       }
     });
   }
@@ -66,5 +68,36 @@ export class SubjectEditComponent implements OnInit {
   public saveCard(card: Card): void {
     card.isEditingActivated = false;
     this.subjectsService.editCard(card);
+  }
+
+  public resetTray(tray: Tray): void {
+    ConfirmDialogComponent.open(
+      this.dialog,
+      'Bist du dir sicher?',
+      `Dies setzt den Lernfortschritt aller Karten in ${tray.name} zurück.`,
+      'Abbrechen',
+      'Zurücksetzen').subscribe(result => {
+        // TODO: reset all cards in tray
+    });
+  }
+
+  public resetAll(): void {
+    ConfirmDialogComponent.open(
+      this.dialog,
+      'Bist du dir sicher?',
+      `Dies setzt den Lernfortschritt aller Karten zurück.`,
+      'Abbrechen',
+      'Alle zurücksetzen', true).subscribe(result => {
+      // TODO: reset all cards
+    });
+  }
+
+  public deleteCard(tray: Tray, card: Card): void {
+    const index = tray.cards.indexOf(card);
+    if (index > -1) {
+      tray.cards.splice(index, 1);
+    }
+
+    this.subjectsService.deleteCard(card);
   }
 }

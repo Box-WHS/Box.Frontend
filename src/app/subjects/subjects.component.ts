@@ -28,10 +28,10 @@ export class SubjectsComponent implements OnInit {
   }
 
   public addSubject(): void {
-    const dialogRef = this.dialog.open(SubjectCreateComponent, {
+    const dialogRef = this.dialog.open(SubjectCreateComponent/*, {
       width: '35rem',
       height: '15rem'
-    });
+    }*/);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

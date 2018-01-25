@@ -6,6 +6,10 @@
   width: 90%;
 }
 
+.card-content {
+  font-size: 13pt !important;
+}
+
 .delete-button {
   position: absolute;
   right: 0;
@@ -18,5 +22,15 @@
 
 .edit-field {
   width: 40%;
+  margin-right: 2rem;
+}
+
+.subject-title {
+  font-size: 14pt;
+  font-weight: bold;
+}
+
+.reset-button {
+  float: right;
   margin-right: 2rem;
 }

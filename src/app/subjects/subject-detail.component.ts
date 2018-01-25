@@ -33,28 +33,11 @@ export class SubjectDetailComponent implements OnInit, OnDestroy {
     });
   }
 
+  cardsExist(): boolean {
+    return this.trays && this.trays.find(value => value.cards && value.cards.length > 0) != null;
+  }
+
   ngOnDestroy(): void {
     this.route.params.subscribe().unsubscribe();
-  }
-
-  public cardsExist(): boolean {
-    if (!this.trays) {
-      return false;
-    }
-
-    this.trays.forEach(tray => {
-      if (tray.cards && tray.cards.length > 0) {
-        return true;
-      }
-    });
-  }
-
-  public deleteCard(tray: Tray, card: Card): void {
-    const index = tray.cards.indexOf(card);
-    if (index > -1) {
-      tray.cards.splice(index, 1);
-    }
-
-    this.subjectService.deleteCard(card);
   }
 }

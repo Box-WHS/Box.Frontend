@@ -4,14 +4,16 @@
   </mat-form-field>
 
   <button mat-raised-button color="primary" (click)="createCard()">Karte hinzufügen</button>
+  <button mat-raised-button color="warn" (click)="resetAll()">Lernfortschritt zurücksetzen</button>
   <div *ngIf="trays">
     <h2>Fächer</h2>
 
     <mat-list *ngFor="let tray of trays">
-      <h3>{{tray.name}}</h3>
+      <span class="subject-title">{{tray.name}}</span>
+      <button mat-icon-button class="reset-button" matTooltip="Fach zurücksetzen" (click)="resetTray(tray)"><mat-icon>undo</mat-icon></button>
       <mat-list-item *ngFor="let card of tray.cards">
-        <span mat-line *ngIf="!card.isEditingActivated;" style="font-size: 13pt">{{card.question}}</span>
-        <span mat-line *ngIf="!card.isEditingActivated;" style="font-size: 13pt">{{card.answer}}</span>
+        <span mat-line *ngIf="!card.isEditingActivated;" class="card-content">{{card.question}}</span>
+        <span mat-line *ngIf="!card.isEditingActivated;" class="card-content">{{card.answer}}</span>
 
         <mat-form-field class="edit-field" *ngIf="card.isEditingActivated;">
           <input matInput [(ngModel)]="card.question" placeholder="Frage">

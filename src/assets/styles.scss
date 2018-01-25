@@ -58,3 +58,12 @@ h1 {
   cursor: default;
   font-size: 2rem ;
 }
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: center;
+
+  button {
+    margin-right: 1rem;
+  }
+}

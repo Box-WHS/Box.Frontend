@@ -3,13 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 
 @Component({
-  templateUrl: './subject-create.component.html',
-  styles: [
-    ' .button-container-outer { display: flex; justify-content: center; margin-top: 1rem; } ',
-    ' .button-container-inner { display: flex; justify-content: space-between; width: 70%; } ',
-    ' button { margin-right: 1rem; } ',
-    ' mat-form-field { width: 95% } '
-  ]
+  templateUrl: './subject-create.component.html'
 })
 export class SubjectCreateComponent {
 
