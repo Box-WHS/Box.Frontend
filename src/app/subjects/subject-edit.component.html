@@ -1,12 +1,29 @@
 <div class="edit-container-outer">
-  <table style="width: 100%">
-    <tr>
-      <td>
-        <mat-form-field style="width: 100%">
-          <input matInput placeholder="Name" [(ngModel)]="subjectName" (blur)="changeSubjectName()">
-        </mat-form-field>
-      </td>
-    </tr>
-  </table>
+  <mat-form-field style="width: 100%">
+    <input matInput placeholder="Name" [(ngModel)]="subjectName" (blur)="changeSubjectName()">
+  </mat-form-field>
 
+  <button mat-raised-button color="primary" (click)="createCard()">Karte hinzufügen</button>
+  <div *ngIf="trays">
+    <h2>Fächer</h2>
+
+    <mat-list *ngFor="let tray of trays">
+      <h3>{{tray.name}}</h3>
+      <mat-list-item *ngFor="let card of tray.cards">
+        <span mat-line *ngIf="!card.isEditingActivated;" style="font-size: 13pt">{{card.question}}</span>
+        <span mat-line *ngIf="!card.isEditingActivated;" style="font-size: 13pt">{{card.answer}}</span>
+
+        <mat-form-field class="edit-field" *ngIf="card.isEditingActivated;">
+          <input matInput [(ngModel)]="card.question" placeholder="Frage">
+        </mat-form-field>
+        <mat-form-field class="edit-field" *ngIf="card.isEditingActivated;">
+          <input matInput [(ngModel)]="card.answer" placeholder="Antwort">
+        </mat-form-field>
+
+        <button class="edit-save-button" mat-icon-button matTooltip="Karte editieren" *ngIf="!card.isEditingActivated;" (click)="editCard(card)"><mat-icon>edit</mat-icon></button>
+        <button class="edit-save-button" mat-icon-button matTooltip="Karte speichern" *ngIf="card.isEditingActivated;" (click)="saveCard(card)"><mat-icon>save</mat-icon></button>
+        <button class="delete-button" mat-icon-button matTooltip="Karte löschen"><mat-icon color="warn">delete</mat-icon></button>
+      </mat-list-item>
+    </mat-list>
+  </div>
 </div>

@@ -6,6 +6,7 @@ import { SubjectsService } from './subjects.service';
 import 'rxjs/add/operator/map';
 import { AppComponent } from '../app.component';
 import { Tray } from './tray';
+import { Card } from './card';
 
 @Component({
   templateUrl: './subject-detail.component.html',
@@ -48,7 +49,12 @@ export class SubjectDetailComponent implements OnInit, OnDestroy {
     });
   }
 
-  redirectToLearn() {
-    this.router.navigate(['learn']);
+  public deleteCard(tray: Tray, card: Card): void {
+    const index = tray.cards.indexOf(card);
+    if (index > -1) {
+      tray.cards.splice(index, 1);
+    }
+
+    this.subjectService.deleteCard(card);
   }
 }

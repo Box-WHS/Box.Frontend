@@ -1,0 +1,18 @@
+<h2>Karte erstellen</h2>
+
+<form [formGroup]="createCardForm" (submit)="onSubmit()">
+  <mat-form-field>
+    <input [formControlName]="'question'" matInput placeholder="Frage">
+    <mat-error *ngIf="createCardForm.controls.question.errors?.required">Du musst eine Frage angeben</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input [formControlName]="'answer'" matInput placeholder="Antwort">
+    <mat-error *ngIf="createCardForm.controls.answer.errors?.required">Du musst eine Antwort angeben</mat-error>
+  </mat-form-field>
+  <div class="button-container-outer">
+    <div class="button-container-inner">
+      <button mat-raised-button type="button" (click)="onAbort()">Abbrechen</button>
+      <button mat-raised-button color="primary" type="submit">Fach erstellen</button>
+    </div>
+  </div>
+</form>

@@ -4,4 +4,5 @@ export class Card {
   public question: string;
   public lastProcessed: Date;
   public tray: number;
+  public isEditingActivated = false;
 }

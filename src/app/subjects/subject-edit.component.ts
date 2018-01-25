@@ -7,6 +7,10 @@ import { SubjectsService } from './subjects.service';
 import { Subject } from './subject';
 import { Tray } from './tray';
 import { Observable } from 'rxjs/Observable';
+import { Card } from './card';
+import { SubjectCreateComponent } from './subject-create.component';
+import { MatDialog } from '@angular/material';
+import { CardCreateComponent } from './card-create.component';
 
 @Component({
   templateUrl: './subject-edit.component.html',
@@ -17,7 +21,7 @@ export class SubjectEditComponent implements OnInit {
   trays: Tray[];
   subjectName = '';
 
-  constructor(private route: ActivatedRoute, private subjectsService: SubjectsService) {}
+  constructor(private route: ActivatedRoute, private subjectsService: SubjectsService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -40,5 +44,27 @@ export class SubjectEditComponent implements OnInit {
       this.subjectName = data.name;
       AppComponent.pageTitle = `Fach ${data.name} bearbeiten`;
     });
+  }
+
+  public createCard(): void {
+    const dialogRef = this.dialog.open(CardCreateComponent, {
+      width: '50rem',
+      height: '19rem'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+
+      }
+    });
+  }
+
+  public editCard(card: Card): void {
+    card.isEditingActivated = true;
+  }
+
+  public saveCard(card: Card): void {
+    card.isEditingActivated = false;
+    this.subjectsService.editCard(card);
   }
 }

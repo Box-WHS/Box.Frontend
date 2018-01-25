@@ -76,18 +76,27 @@ export class SubjectsService {
   }
 
   public createCard(tray: Tray, question: string, answer: string): Observable<Card> {
-    return this.http.post(`${environment.api.apiUrl}/Box/${tray.boxId}/Tray/${tray.id}/card`, { question: question, answer: answer }).map(data => {
+    return this.http.post(`${environment.api.apiUrl}/Box/${tray.boxId}/Tray/${tray.id}/card`, { question: question, answer: answer }).map((data, error) => {
       return data.json() as Card;
     }).catch(error => {
       return this.handleError(error);
     });
   }
 
+  public editCard(card: Card): void {
+    // TODO: implement
+  }
+
+  public deleteCard(card: Card): void {
+    // TODO: implement
+  }
+
   private handleError(error): Observable<any> {
-    if (error.status === 401 || typeof error === typeof AuthHttpError) {
+    if (error.status === 401 || !this.authService.isSessionValid()) {
       this.authService.logout();
     }
 
+    console.log('Error in subjects service');
     console.log(error);
     return Observable.of(null);
   }

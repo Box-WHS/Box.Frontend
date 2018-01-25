@@ -1,6 +1,10 @@
 <div class="container" *ngIf="subject">
   <div class="inner-container">
-    <mat-card class="card" [routerLink]="cardsExist() ? 'learn' : null" [ngClass]="!cardsExist() ? 'disabled' : null" [matTooltip]="!cardsExist() ? 'Füge Karten hinzu, um das Fach zu lernen' : null">
+    <mat-card
+      class="card"
+      [routerLink]="cardsExist() ? 'learn' : null"
+      [ngClass]="!cardsExist() ? 'disabled' : null"
+      [matTooltip]="!cardsExist() ? 'Füge Karten hinzu, um das Fach zu lernen' : null">
       <mat-card-header>
         <mat-card-title >Lernen</mat-card-title>
         <mat-card-subtitle style="font-size: 15pt;">Lerne das Set {{subject.name}}</mat-card-subtitle>

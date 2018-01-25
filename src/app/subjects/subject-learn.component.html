@@ -51,7 +51,7 @@
         <div class="boxes-table-row">
           <mat-card *ngFor="let tray of trays" class="boxes-card">
             <mat-card-header>
-              <mat-card-title>Fach {{tray.name}}</mat-card-title>
+              <mat-card-title>{{tray.name}}</mat-card-title>
               <mat-card-subtitle *ngIf="tray.cards">{{tray.cards.length}} Karteikarten</mat-card-subtitle>
             </mat-card-header>
             <mat-card-actions>

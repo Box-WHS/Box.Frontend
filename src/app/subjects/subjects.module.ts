@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SubjectsService } from './subjects.service';
 import { SubjectCreateComponent } from './subject-create.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { CardCreateComponent } from './card-create.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { BrowserModule } from '@angular/platform-browser';
     SubjectDetailComponent,
     SubjectLearnComponent,
     SubjectEditComponent,
-    SubjectCreateComponent
+    SubjectCreateComponent,
+    CardCreateComponent
   ],
   imports: [
     CommonModule,
@@ -45,7 +47,8 @@ import { BrowserModule } from '@angular/platform-browser';
     ])
   ],
   entryComponents: [
-    SubjectCreateComponent
+    SubjectCreateComponent,
+    CardCreateComponent
   ],
   providers: [
     SubjectsService
