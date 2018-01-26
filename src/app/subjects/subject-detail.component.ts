@@ -28,7 +28,7 @@ export class SubjectDetailComponent implements OnInit, OnDestroy {
       this.subjectService.getSubject(id).subscribe(data => {
         AppComponent.pageTitle = `Fach ${data.name}`;
         this.subject = data;
-        this.subjectService.getTrays(data).subscribe(trays => this.trays = trays);
+        this.subjectService.getTrays(data).then(trays => this.trays = trays);
       });
     });
   }

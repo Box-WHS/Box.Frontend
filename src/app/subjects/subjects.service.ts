@@ -38,6 +38,7 @@ export class SubjectsService {
     });
   }
 
+  /*
   public getTrays(subject: Subject): Observable<Tray[]> {
     return this.http.get(`${environment.api.apiUrl}/Box/${subject.id}/trays`).map(data => {
       let result = data.json() as Tray[];
@@ -49,6 +50,15 @@ export class SubjectsService {
     }).catch(error => {
       return this.handleError(error);
     });
+  }*/
+
+  public async getTrays(subject: Subject): Promise<Tray[]> {
+    const result = await this.http.get(`${environment.api.apiUrl}/Box/${subject.id}/trays`).toPromise();
+    const trays = (result.json() as Tray[]).sort((a, b) => a.name.localeCompare(b.name));
+    for (let i = 0; i < trays.length; i++) {
+      trays[i].cards = await this.getCards(trays[i]).toPromise();
+    }
+    return trays;
   }
 
   public getCards(tray: Tray): Observable<Card[]> {

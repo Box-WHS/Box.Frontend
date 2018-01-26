@@ -55,7 +55,7 @@ export class SubjectLearnComponent implements OnInit {
       this.subjectsService.getSubject(id).subscribe(subject => {
         this.subject = subject;
         AppComponent.pageTitle = `Fach ${subject.name} lernen`;
-        this.subjectsService.getTrays(subject).subscribe(trays => this.trays = trays);
+        this.subjectsService.getTrays(subject).then(trays => this.trays = trays);
       });
     });
   }

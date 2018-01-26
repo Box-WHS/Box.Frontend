@@ -26,7 +26,7 @@ export class SubjectEditComponent implements OnInit {
       const id = +params['id'];
       this.subject = this.subjectsService.getSubject(id);
       this.updateData(this.subject);
-      this.subject.subscribe(data => this.subjectsService.getTrays(data).subscribe(trays => this.trays = trays));
+      this.subject.subscribe(data => this.subjectsService.getTrays(data).then(trays => this.trays = trays));
     });
   }
 
