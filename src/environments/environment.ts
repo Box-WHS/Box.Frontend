@@ -6,13 +6,13 @@
 export const environment = {
   production: false,
   auth: {
-    // authUrl: 'http://localhost:8080/auth',
-    authUrl: 'http://localhost:4711',
+    authUrl: 'http://localhost:8080/auth',
+    // authUrl: 'http://localhost:4711',
     sessionStorageName: 'box-session',
     minPasswordLength: 6
   },
   api: {
-    // apiUrl: 'http://localhost:8080/api'
-    apiUrl: 'http://localhost:5000'
+    apiUrl: 'http://localhost:8080/api'
+    // apiUrl: 'http://localhost:5000'
   }
 };
