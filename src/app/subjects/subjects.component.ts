@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatSort } from '@angular/material';
 import { SubjectsService } from './subjects.service';
 import { SubjectCreateComponent } from './subject-create.component';
+import { async } from 'rxjs/scheduler/async';
 
 @Component({
   templateUrl: './subjects.component.html',
@@ -27,12 +28,27 @@ export class SubjectsComponent implements OnInit {
     this.router.navigate([`${subject.id}`],  {relativeTo: this.route});
   }
 
-  public addSubject(): void {
+  public async addSubject(): Promise<void> {
     const dialogRef = this.dialog.open(SubjectCreateComponent/*, {
       width: '35rem',
       height: '15rem'
     }*/);
 
+    const result = await dialogRef.afterClosed().toPromise();
+    if (result) {
+      const subject = await this.subjectsService.createSubject(result).toPromise();
+      console.log(subject);
+      for (let i = 1; i <= 5; i++) {
+        const tray = await this.subjectsService.createTray(subject, `Fach ${i}`, '00:00:00').toPromise();
+        console.log(tray);
+      }
+      this.subjectsService.createTray(subject, 'Gelernt', '00:00:00').subscribe(tray => console.log(tray));
+
+      if (subject) {
+        this.router.navigate([`${subject.id}`, 'edit'],  {relativeTo: this.route});
+      }
+    }
+    /*
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.subjectsService.createSubject(result).subscribe(data => {
@@ -47,6 +63,6 @@ export class SubjectsComponent implements OnInit {
           }
         });
       }
-    });
+    });*/
   }
 }
