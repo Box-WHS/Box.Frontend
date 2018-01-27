@@ -20,6 +20,7 @@ import { ConfirmDialogComponent } from './misc/confirm-dialog.component';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { Http, HttpModule, RequestOptions } from '@angular/http';
+import { NgProgressRouterModule } from '@ngx-progressbar/router';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions, authService: AuthService) {
   return new AuthHttp(new AuthConfig({
@@ -44,6 +45,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, auth
     HttpModule,
     NgProgressModule.forRoot(),
     NgProgressHttpModule,
+    NgProgressRouterModule,
     StorageModule,
     BrowserAnimationsModule,
     MaterialModule,

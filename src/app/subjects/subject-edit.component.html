@@ -13,7 +13,7 @@
           <mat-expansion-panel-header>
             <mat-panel-title>{{tray.name}}</mat-panel-title>
             <mat-panel-description>
-              {{tray.cards.length}} Karten
+              {{tray.cards.length}} {{tray.cards.length === 1 ? 'Karte' : 'Karten'}}
             </mat-panel-description>
           </mat-expansion-panel-header>
 
