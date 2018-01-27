@@ -91,7 +91,9 @@ export class SubjectEditComponent implements OnInit {
       `Dies setzt den Lernfortschritt aller Karten in ${tray.name} zurück.`,
       'Abbrechen',
       'Zurücksetzen').subscribe(result => {
-        // TODO: reset all cards in tray
+        this.trays[0].cards = this.trays[0].cards.concat(tray.cards);
+        tray.cards = [];
+        // TODO: api call
     });
   }
 
@@ -102,7 +104,11 @@ export class SubjectEditComponent implements OnInit {
       `Dies setzt den Lernfortschritt aller Karten zurück.`,
       'Abbrechen',
       'Alle zurücksetzen', true).subscribe(result => {
-      // TODO: reset all cards
+        for (let i = 1; i < this.trays.length; i++) {
+          this.trays[0].cards = this.trays[0].cards.concat(this.trays[i].cards);
+          this.trays[i].cards = [];
+        }
+        // TODO: api call
     });
   }
 
