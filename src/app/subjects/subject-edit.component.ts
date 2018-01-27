@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../app.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SubjectsService } from './subjects.service';
 import { Subject } from './subject';
 import { Tray } from './tray';
@@ -19,14 +19,26 @@ export class SubjectEditComponent implements OnInit {
   trays: Tray[];
   subjectName = '';
 
-  constructor(private route: ActivatedRoute, private subjectsService: SubjectsService, private dialog: MatDialog) {}
+  constructor(private route: ActivatedRoute, private router: Router, private subjectsService: SubjectsService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const id = +params['id'];
       this.subject = this.subjectsService.getSubject(id);
       this.updateData(this.subject);
-      this.subject.subscribe(data => this.subjectsService.getTrays(data).then(trays => this.trays = trays));
+      this.subject.subscribe(data => {
+        if (!data) {
+          this.router.navigate(['/subjects']);
+        }
+
+        this.subjectsService.getTrays(data).then(trays => {
+          if (trays[0]) {
+            trays[0].expanded = true;
+          }
+
+          this.trays = trays;
+        });
+      });
     });
   }
 
@@ -39,8 +51,10 @@ export class SubjectEditComponent implements OnInit {
 
   private updateData(subject: Observable<Subject>): void {
     subject.subscribe(data => {
-      this.subjectName = data.name;
-      AppComponent.pageTitle = `Fach ${data.name} bearbeiten`;
+      if (data) {
+        this.subjectName = data.name;
+        AppComponent.pageTitle = `Fach ${data.name} bearbeiten`;
+      }
     });
   }
 

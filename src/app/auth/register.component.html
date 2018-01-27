@@ -59,7 +59,7 @@
               Das Passwort ist nicht sicher genug
             </mat-error>
           </mat-form-field>
-          <app-password-strength-indicator [minLength]="minPasswordLength" [password]="passwordForm.controls.password.value" (strengthCalculated)="onPasswordStrengthCalculated($event)" style="display: inline-block; width: 80%"></app-password-strength-indicator>
+          <app-password-strength-indicator [minLength]="minPasswordLength" [password]="passwordForm.controls.password.value" (strengthCalculated)="onPasswordStrengthCalculated($event)" style="display: inline-block; width: 80%; margin-bottom: 2rem;"></app-password-strength-indicator>
 
           <mat-form-field>
             <input matInput formControlName="passwordConfirm" placeholder="Passwort bestätigen" type="password" maxlength="64">

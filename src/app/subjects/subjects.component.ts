@@ -42,7 +42,8 @@ export class SubjectsComponent implements OnInit {
         const tray = await this.subjectsService.createTray(subject, `Fach ${i}`, '00:00:00').toPromise();
         console.log(tray);
       }
-      this.subjectsService.createTray(subject, 'Gelernt', '00:00:00').subscribe(tray => console.log(tray));
+      const learnedTray = await this.subjectsService.createTray(subject, 'Gelernt', '00:00:00').toPromise();
+      console.log(learnedTray);
 
       if (subject) {
         this.router.navigate([`${subject.id}`, 'edit'],  {relativeTo: this.route});

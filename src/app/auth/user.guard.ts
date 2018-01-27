@@ -5,8 +5,7 @@ import { AuthService } from './auth.service';
 @Injectable()
 export class UserGuard implements CanActivate, CanLoad {
   constructor(private authService: AuthService,
-    private router: Router
-    ) { }
+    private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this.checkLogin(state.url);
