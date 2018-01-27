@@ -8,8 +8,8 @@
   <div *ngIf="trays">
     <h2>Fächer</h2>
     <mat-accordion [multi]="false">
-      <mat-expansion-panel *ngFor="let tray of trays" [expanded]="true">
-        <ng-container *ngIf="tray">
+      <ng-container *ngFor="let tray of trays">
+        <mat-expansion-panel *ngIf="tray" [expanded]="true">
           <mat-expansion-panel-header>
             <mat-panel-title>{{tray.name}}</mat-panel-title>
             <mat-panel-description>
@@ -17,25 +17,27 @@
             </mat-panel-description>
           </mat-expansion-panel-header>
 
-          <mat-list class="tray-list" *ngIf="tray.cards && tray.cards.length > 0; else noCards">
-            <mat-list-item *ngFor="let card of tray.cards">
-              <span mat-line *ngIf="!card.isEditingActivated;" class="card-content">{{card.question}}</span>
-              <span mat-line *ngIf="!card.isEditingActivated;" class="card-content">{{card.answer}}</span>
+          <ng-template matExpansionPanelContent>
+            <mat-list class="tray-list" *ngIf="tray.cards && tray.cards.length > 0; else noCards">
+              <mat-list-item *ngFor="let card of tray.cards">
+                <span mat-line *ngIf="!card.isEditingActivated;" class="card-content">{{card.question}}</span>
+                <span mat-line *ngIf="!card.isEditingActivated;" class="card-content">{{card.answer}}</span>
 
-              <mat-form-field class="edit-field" *ngIf="card.isEditingActivated;">
-                <input matInput [(ngModel)]="card.question" placeholder="Frage">
-              </mat-form-field>
-              <mat-form-field class="edit-field" *ngIf="card.isEditingActivated;">
-                <input matInput [(ngModel)]="card.answer" placeholder="Antwort">
-              </mat-form-field>
+                <mat-form-field class="edit-field" *ngIf="card.isEditingActivated;">
+                  <input matInput [(ngModel)]="card.question" placeholder="Frage">
+                </mat-form-field>
+                <mat-form-field class="edit-field" *ngIf="card.isEditingActivated;">
+                  <input matInput [(ngModel)]="card.answer" placeholder="Antwort">
+                </mat-form-field>
 
-              <button class="edit-save-button" mat-icon-button matTooltip="Karte editieren" *ngIf="!card.isEditingActivated;" (click)="editCard(card)"><mat-icon>edit</mat-icon></button>
-              <button class="edit-save-button" mat-icon-button matTooltip="Karte speichern" *ngIf="card.isEditingActivated;" (click)="saveCard(card)"><mat-icon>save</mat-icon></button>
-              <button class="delete-button" mat-icon-button matTooltip="Karte löschen" (click)="deleteCard(tray, card)"><mat-icon color="warn">delete</mat-icon></button>
-            </mat-list-item>
-          </mat-list>
-          <ng-template #noCards>
-            <p>Keine Karten vorhanden</p>
+                <button class="edit-save-button" mat-icon-button matTooltip="Karte editieren" *ngIf="!card.isEditingActivated;" (click)="editCard(card)"><mat-icon>edit</mat-icon></button>
+                <button class="edit-save-button" mat-icon-button matTooltip="Karte speichern" *ngIf="card.isEditingActivated;" (click)="saveCard(card)"><mat-icon>save</mat-icon></button>
+                <button class="delete-button" mat-icon-button matTooltip="Karte löschen" (click)="deleteCard(tray, card)"><mat-icon color="warn">delete</mat-icon></button>
+              </mat-list-item>
+            </mat-list>
+            <ng-template #noCards>
+              <p>Keine Karten vorhanden</p>
+            </ng-template>
           </ng-template>
 
           <mat-action-row>
@@ -44,8 +46,8 @@
               Zurücksetzen
             </button>
           </mat-action-row>
-        </ng-container>
-      </mat-expansion-panel>
+        </mat-expansion-panel>
+      </ng-container>
     </mat-accordion>
   </div>
 </div>

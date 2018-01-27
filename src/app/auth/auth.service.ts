@@ -15,8 +15,6 @@ export class AuthService {
     return 'secret';
   }
 
-  @Output() onLogout = new EventEmitter();
-
   redirectUrl = '/';
   sessionValid = false;
   loggedIn = false;
@@ -102,11 +100,10 @@ export class AuthService {
   }
 
   logout(): void {
-    this.loggedIn = false;
-    this.storageService.remove(environment.auth.sessionStorageName);
     this.router.navigate(['/login']);
 
-    this.onLogout.emit();
+    this.loggedIn = false;
+    this.storageService.remove(environment.auth.sessionStorageName);
   }
 
   isLoggedIn(): boolean {

@@ -5,10 +5,7 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserXhr, Http, HttpModule, RequestOptions } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgProgressBrowserXhr, NgProgressInterceptor, NgProgressModule } from 'ngx-progressbar';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { AuthService } from './auth/auth.service';
@@ -20,6 +17,9 @@ import { LogoutComponent } from './auth/logout.component';
 import { StorageModule } from './storage/storage.module';
 import { AuthConfig, AuthHttp } from 'angular2-jwt';
 import { ConfirmDialogComponent } from './misc/confirm-dialog.component';
+import { NgProgressHttpModule } from '@ngx-progressbar/http';
+import { NgProgressModule } from '@ngx-progressbar/core';
+import { Http, HttpModule, RequestOptions } from '@angular/http';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions, authService: AuthService) {
   return new AuthHttp(new AuthConfig({
@@ -42,10 +42,11 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, auth
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    NgProgressModule.forRoot(),
+    NgProgressHttpModule,
     StorageModule,
     BrowserAnimationsModule,
     MaterialModule,
-    NgProgressModule,
     SimpleNotificationsModule.forRoot(),
     RouterModule.forRoot([
       {
@@ -82,8 +83,6 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, auth
     AuthService,
     WindowRef,
     UserGuard,
-    { provide: BrowserXhr, useClass: NgProgressBrowserXhr },
-    { provide: HTTP_INTERCEPTORS, useClass: NgProgressInterceptor, multi: true },
     {
       provide: AuthHttp,
       useFactory: authHttpServiceFactory,

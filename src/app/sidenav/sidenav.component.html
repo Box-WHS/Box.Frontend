@@ -1,20 +1,21 @@
 <mat-toolbar class="sidebar">
-  <mat-icon>
-    account_circle
-  </mat-icon>
-  <span *ngIf="authService.session?.decodedToken?.preferred_username">
-    &nbsp;&nbsp;{{authService.session?.decodedToken?.preferred_username}}
-  </span>
-
-  <button mat-icon-button [matMenuTriggerFor]="menu">
-    <mat-icon>more_vert</mat-icon>
-  </button>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item [routerLink]="['/settings']">
-      <mat-icon>settings</mat-icon>
-      <span>Einstellungen</span>
+  <mat-toolbar-row>
+    <mat-icon>
+      account_circle
+    </mat-icon>
+    <span *ngIf="authService.session?.decodedToken?.preferred_username">
+      &nbsp;&nbsp;{{authService.session?.decodedToken?.preferred_username}}
+    </span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
     </button>
-  </mat-menu>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [routerLink]="['/settings']">
+        <mat-icon>settings</mat-icon>
+        <span>Einstellungen</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar-row>
 
   <mat-toolbar-row *ngFor="let entry of entries" [routerLink]="entry.routerLink" routerLinkActive="active" class="sidebar-entry">
     <mat-icon *ngIf="entry.icon">{{entry.icon}}</mat-icon>
