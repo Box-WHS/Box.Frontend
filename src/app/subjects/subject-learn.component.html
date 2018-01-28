@@ -2,7 +2,7 @@
   <div class="card-container-inner">
     <mat-card class="card">
       <mat-card-header>
-        <mat-card-title class="learn-card-title">{{trays[currentTrayIndex].name}}</mat-card-title>
+        <mat-card-title class="learn-card-title">{{subject.trays[currentTrayIndex].name}}</mat-card-title>
         <!--<mat-card-subtitle class="learn-card-subtitle">Karte / 20</mat-card-subtitle>-->
       </mat-card-header>
       <mat-card-content>
@@ -46,12 +46,12 @@
     <div class="boxes-table">
       <div class="boxes-table-row-group">
         <div class="boxes-table-row">
-          <mat-card *ngFor="let tray of trays" class="boxes-card">
+          <mat-card *ngFor="let tray of subject.trays" class="boxes-card">
             <mat-card-header>
               <mat-card-title>{{tray.name}}</mat-card-title>
               <mat-card-subtitle *ngIf="tray.cards">{{tray.cards.length}} Karteikarten</mat-card-subtitle>
             </mat-card-header>
-            <mat-card-actions *ngIf="tray != trays[trays.length - 1]">
+            <mat-card-actions *ngIf="(tray != subject.trays[subject.trays.length - 1])">
               <button mat-raised-button (click)="selectTray(tray)">Lernen</button>
             </mat-card-actions>
           </mat-card>

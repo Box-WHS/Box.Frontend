@@ -5,11 +5,11 @@
 
   <button mat-raised-button color="primary" (click)="createCard()">Karte hinzufügen</button>
   <button mat-raised-button color="warn" (click)="resetAll()">Lernfortschritt zurücksetzen</button>
-  <div *ngIf="trays">
+  <div *ngIf="subject.trays">
     <h2>Fächer</h2>
     <mat-accordion [multi]="false">
-      <ng-container *ngFor="let tray of trays">
-        <mat-expansion-panel *ngIf="tray" [expanded]="tray === trays[0]">
+      <ng-container *ngFor="let tray of subject.trays">
+        <mat-expansion-panel *ngIf="tray" [expanded]="tray === subject.trays[0]">
           <mat-expansion-panel-header>
             <mat-panel-title>{{tray.name}}</mat-panel-title>
             <mat-panel-description>
@@ -40,7 +40,7 @@
             </ng-template>
           </ng-template>
 
-          <mat-action-row *ngIf="tray !== trays[0]">
+          <mat-action-row *ngIf="tray !== subject.trays[0]">
             <button mat-raised-button color="warn" matTooltip="Fach zurücksetzen" (click)="resetTray(tray)">
               <mat-icon>undo</mat-icon>
               Zurücksetzen

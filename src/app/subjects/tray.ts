@@ -6,5 +6,4 @@ export class Tray {
   public interval: Date;
   public boxId: number;
   public cards: Card[];
-  public expanded = false;
 }

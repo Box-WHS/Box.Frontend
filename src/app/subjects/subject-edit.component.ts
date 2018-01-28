@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SubjectsService } from './subjects.service';
 import { Subject } from './subject';
 import { Tray } from './tray';
-import { Observable } from 'rxjs/Observable';
 import { Card } from './card';
 import { MatDialog } from '@angular/material';
 import { CardCreateComponent } from './card-create.component';
@@ -15,47 +14,25 @@ import { ConfirmDialogComponent } from '../misc/confirm-dialog.component';
   styleUrls: ['./subject-edit.component.scss']
 })
 export class SubjectEditComponent implements OnInit {
-  subject: Observable<Subject>;
-  trays: Tray[];
+  subject: Subject;
   subjectName = '';
 
   constructor(private route: ActivatedRoute, private router: Router, private subjectsService: SubjectsService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      const id = +params['id'];
-      this.subject = this.subjectsService.getSubject(id);
-      this.updateData(this.subject);
-      this.subject.subscribe(data => {
-        if (!data) {
-          this.router.navigate(['/subjects']);
-        }
-
-        this.subjectsService.getTrays(data).then(trays => {
-          if (trays[0]) {
-            trays[0].expanded = true;
-          }
-
-          this.trays = trays;
-        });
-      });
-    });
+    this.subject = this.route.snapshot.data.data as Subject;
+    this.subjectName = this.subject.name;
+    this.updateData();
   }
 
   public changeSubjectName(): void {
-    this.subject.subscribe(subject => {
-      this.subject = this.subjectsService.editSubject(subject.id, this.subjectName);
-      this.updateData(this.subject);
-    });
+    this.subject.name = this.subjectName;
+    this.subjectsService.editSubject(this.subject.id, this.subjectName).subscribe();
+    this.updateData();
   }
 
-  private updateData(subject: Observable<Subject>): void {
-    subject.subscribe(data => {
-      if (data) {
-        this.subjectName = data.name;
-        AppComponent.pageTitle = `Fach ${data.name} bearbeiten`;
-      }
-    });
+  private updateData(): void {
+    AppComponent.pageTitle = `Fach ${this.subject.name} bearbeiten`;
   }
 
   public createCard(): void {
@@ -66,9 +43,9 @@ export class SubjectEditComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.subjectsService.createCard(this.trays[0], result.question, result.answer).subscribe(card => {
+        this.subjectsService.createCard(this.subject.trays[0], result.question, result.answer).subscribe(card => {
           if (card) {
-            this.trays[0].cards.push(card);
+            this.subject.trays[0].cards.push(card);
           }
         });
       }
@@ -91,7 +68,7 @@ export class SubjectEditComponent implements OnInit {
       `Dies setzt den Lernfortschritt aller Karten in ${tray.name} zurück.`,
       'Abbrechen',
       'Zurücksetzen').subscribe(result => {
-        this.trays[0].cards = this.trays[0].cards.concat(tray.cards);
+        this.subject.trays[0].cards = this.subject.trays[0].cards.concat(tray.cards);
         tray.cards = [];
         // TODO: api call
     });
@@ -104,9 +81,9 @@ export class SubjectEditComponent implements OnInit {
       `Dies setzt den Lernfortschritt aller Karten zurück.`,
       'Abbrechen',
       'Alle zurücksetzen', true).subscribe(result => {
-        for (let i = 1; i < this.trays.length; i++) {
-          this.trays[0].cards = this.trays[0].cards.concat(this.trays[i].cards);
-          this.trays[i].cards = [];
+        for (let i = 1; i < this.subject.trays.length; i++) {
+          this.subject.trays[0].cards = this.subject.trays[0].cards.concat(this.subject.trays[i].cards);
+          this.subject.trays[i].cards = [];
         }
         // TODO: api call
     });

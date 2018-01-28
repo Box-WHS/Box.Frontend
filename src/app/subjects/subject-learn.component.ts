@@ -6,7 +6,7 @@ import { animate, keyframes, state, style, transition, trigger } from '@angular/
 import { StorageService } from '../storage/storage.service';
 import { Tray } from './tray';
 import { Subject } from './subject';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SubjectsService } from './subjects.service';
 import { Card } from './card';
 
@@ -35,7 +35,6 @@ import { Card } from './card';
 export class SubjectLearnComponent implements OnInit {
 
   readonly boxesMinimzedStorageKey = 'box-learn-boxes-minimized';
-  trays: Tray[] = [];
   subject: Subject;
   showAnswer = false;
   currentTrayIndex = -1;
@@ -49,32 +48,30 @@ export class SubjectLearnComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               public storageService: StorageService,
               private route: ActivatedRoute,
+              private router: Router,
               private subjectsService: SubjectsService) {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      const id = +params['id'];
-      this.subjectsService.getSubject(id).subscribe(subject => {
-        this.subject = subject;
-        AppComponent.pageTitle = `Fach ${subject.name} lernen`;
-        this.subjectsService.getTrays(subject).then(trays => {
-          this.trays = trays;
-          for (let i = 0; i < trays.length; i++) {
-            if (trays[i].cards.length > -1) {
-              this.currentTrayIndex = i;
-              break;
-            }
-          }
-        });
-      });
-    });
+    this.subject = this.route.snapshot.data.data as Subject;
+    AppComponent.pageTitle = `Fach ${this.subject.name} lernen`;
+    for (let i = 0; i < this.subject.trays.length; i++) {
+      if (this.subject.trays[i].cards.length > -1) {
+        this.currentTrayIndex = i;
+        this.currentCard = this.subject.trays[i].cards[0];
+        break;
+      }
+    }
+    if (this.currentTrayIndex === -1) {
+      this.router.navigate(['/subjects']);
+      return;
+    }
   }
 
   answerSubmitted() {
     if (this.answerForm.controls.answer.value === this.currentCard.answer) {
       this.answerForm.controls.answer.setValue('');
-      this.moveCard(this.trays[this.currentTrayIndex], this.trays[this.currentTrayIndex + 1], this.currentCard);
+      this.moveCard(this.subject.trays[this.currentTrayIndex], this.subject.trays[this.currentTrayIndex + 1], this.currentCard);
       this.selectNextCard();
       return;
     }
@@ -93,11 +90,11 @@ export class SubjectLearnComponent implements OnInit {
 
   private selectNextCard(): void {
     // TODO: handle if all cards are learned
-    if (this.trays[this.currentTrayIndex].cards.length === 0) {
+    if (this.subject.trays[this.currentTrayIndex].cards.length === 0) {
       this.currentTrayIndex++;
       return;
     }
-    this.currentCard = this.trays[this.currentTrayIndex].cards[0];
+    this.currentCard = this.subject.trays[this.currentTrayIndex].cards[0];
   }
 
   /*
@@ -111,12 +108,12 @@ export class SubjectLearnComponent implements OnInit {
     this.answerForm.controls.answer.setValue('');
 
     const targetTrayIndex = answerCorrect ? this.currentTrayIndex + 1 : this.currentTrayIndex - 1;
-    this.moveCard(this.trays[this.currentTrayIndex], this.trays[targetTrayIndex], this.currentCard);
+    this.moveCard(this.subject.trays[this.currentTrayIndex], this.subject.trays[targetTrayIndex], this.currentCard);
     this.selectNextCard();
   }
 
   public selectTray(tray: Tray): void {
-    this.currentTrayIndex = this.trays.indexOf(tray);
+    this.currentTrayIndex = this.subject.trays.indexOf(tray);
   }
 
   public toggleBoxes(): void {

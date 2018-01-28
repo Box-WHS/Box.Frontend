@@ -9,8 +9,8 @@ import { SubjectEditComponent } from './subject-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SubjectsService } from './subjects.service';
 import { SubjectCreateComponent } from './subject-create.component';
-import { BrowserModule } from '@angular/platform-browser';
 import { CardCreateComponent } from './card-create.component';
+import { SubjectsResolver } from './subjects.resolver';
 
 @NgModule({
   declarations: [
@@ -34,15 +34,18 @@ import { CardCreateComponent } from './card-create.component';
       },
       {
         path: ':id',
-        component: SubjectDetailComponent
+        component: SubjectDetailComponent,
+        resolve: { data: SubjectsResolver }
       },
       {
         path: ':id/learn',
-        component: SubjectLearnComponent
+        component: SubjectLearnComponent,
+        resolve: { data: SubjectsResolver }
       },
       {
         path: ':id/edit',
-        component: SubjectEditComponent
+        component: SubjectEditComponent,
+        resolve: { data: SubjectsResolver }
       }
     ])
   ],
@@ -51,7 +54,8 @@ import { CardCreateComponent } from './card-create.component';
     CardCreateComponent
   ],
   providers: [
-    SubjectsService
+    SubjectsService,
+    SubjectsResolver
   ]
 })
 export class SubjectsModule {}
