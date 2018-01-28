@@ -8,6 +8,7 @@ import { Tray } from './tray';
 import { Subject } from './subject';
 import { ActivatedRoute } from '@angular/router';
 import { SubjectsService } from './subjects.service';
+import { Card } from './card';
 
 @Component({
   templateUrl: './subject-learn.component.html',
@@ -37,6 +38,8 @@ export class SubjectLearnComponent implements OnInit {
   trays: Tray[] = [];
   subject: Subject;
   showAnswer = false;
+  currentTrayIndex = -1;
+  currentCard: Card;
   boxesMinimized = this.storageService.getBool(this.boxesMinimzedStorageKey, false);
 
   answerForm = this.formBuilder.group({
@@ -55,29 +58,69 @@ export class SubjectLearnComponent implements OnInit {
       this.subjectsService.getSubject(id).subscribe(subject => {
         this.subject = subject;
         AppComponent.pageTitle = `Fach ${subject.name} lernen`;
-        this.subjectsService.getTrays(subject).then(trays => this.trays = trays);
+        this.subjectsService.getTrays(subject).then(trays => {
+          this.trays = trays;
+          for (let i = 0; i < trays.length; i++) {
+            if (trays[i].cards.length > -1) {
+              this.currentTrayIndex = i;
+              break;
+            }
+          }
+        });
       });
     });
   }
 
   answerSubmitted() {
-    console.log(this.answerForm.controls.answer.value);
+    if (this.answerForm.controls.answer.value === this.currentCard.answer) {
+      this.answerForm.controls.answer.setValue('');
+      this.moveCard(this.trays[this.currentTrayIndex], this.trays[this.currentTrayIndex + 1], this.currentCard);
+      this.selectNextCard();
+      return;
+    }
+
     this.showAnswer = true;
   }
 
-  answerReviewed(answerCorrect: boolean) {
+  private moveCard(currentTray: Tray, targetTray: Tray, card: Card): void {
+    const index = currentTray.cards.indexOf(card);
+    if (index > -1) {
+      currentTray.cards = currentTray.cards.splice(index, 1);
+    }
+
+    targetTray.cards.push(card);
+  }
+
+  private selectNextCard(): void {
+    // TODO: handle if all cards are learned
+    if (this.trays[this.currentTrayIndex].cards.length === 0) {
+      this.currentTrayIndex++;
+      return;
+    }
+    this.currentCard = this.trays[this.currentTrayIndex].cards[0];
+  }
+
+  /*
+  public skipCard(): void {
+    this.answerForm.controls.answer.setValue('');
+    this.selectNextCard();
+  }*/
+
+  public answerReviewed(answerCorrect: boolean): void {
     this.showAnswer = false;
     this.answerForm.controls.answer.setValue('');
+
+    const targetTrayIndex = answerCorrect ? this.currentTrayIndex + 1 : this.currentTrayIndex - 1;
+    this.moveCard(this.trays[this.currentTrayIndex], this.trays[targetTrayIndex], this.currentCard);
+    this.selectNextCard();
+  }
+
+  public selectTray(tray: Tray): void {
+    this.currentTrayIndex = this.trays.indexOf(tray);
   }
 
   public toggleBoxes(): void {
     this.boxesMinimized = !this.boxesMinimized;
     this.storageService.setBool(this.boxesMinimzedStorageKey, this.boxesMinimized);
-  }
-
-  public range(min, max): number[] {
-    const a = [];
-    for (let i = min; i <= max; i++) { a.push(i); }
-    return a;
   }
 }

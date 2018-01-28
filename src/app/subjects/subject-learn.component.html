@@ -2,20 +2,17 @@
   <div class="card-container-inner">
     <mat-card class="card">
       <mat-card-header>
-        <mat-card-title class="learn-card-title">Fach 1</mat-card-title>
-        <mat-card-subtitle class="learn-card-subtitle">Karte 1 / 20</mat-card-subtitle>
+        <mat-card-title class="learn-card-title">{{trays[currentTrayIndex].name}}</mat-card-title>
+        <!--<mat-card-subtitle class="learn-card-subtitle">Karte / 20</mat-card-subtitle>-->
       </mat-card-header>
       <mat-card-content>
         <p class="learn-card-content" *ngIf="!showAnswer; else solution">
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-          sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-          sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+          {{currentCard.question}}
         </p>
         <ng-template #solution>
           <span>Lösung</span>
           <p>
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+            {{currentCard.answer}}
           </p>
         </ng-template>
       </mat-card-content>
@@ -26,7 +23,7 @@
               <input matInput formControlName="answer" placeholder="Antwort">
             </mat-form-field>
           </div>
-          <button mat-raised-button type="button">Überspringen</button>
+          <!--<button mat-raised-button type="button" (click)="skipCard()">Überspringen</button>-->
           <button mat-raised-button color="primary" type="submit">Beantworten</button>
         </form>
         <ng-template #solutionForm>
@@ -54,15 +51,9 @@
               <mat-card-title>{{tray.name}}</mat-card-title>
               <mat-card-subtitle *ngIf="tray.cards">{{tray.cards.length}} Karteikarten</mat-card-subtitle>
             </mat-card-header>
-            <mat-card-actions>
-              <button mat-raised-button>Lernen</button>
+            <mat-card-actions *ngIf="tray != trays[trays.length - 1]">
+              <button mat-raised-button (click)="selectTray(tray)">Lernen</button>
             </mat-card-actions>
-          </mat-card>
-          <mat-card class="boxes-card">
-            <mat-card-header>
-              <mat-card-title>Gelernt</mat-card-title>
-              <mat-card-subtitle>20 Karteikarten</mat-card-subtitle>
-            </mat-card-header>
           </mat-card>
         </div>
       </div>
