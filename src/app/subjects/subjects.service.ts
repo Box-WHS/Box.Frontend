@@ -103,7 +103,7 @@ export class SubjectsService {
 
   private handleError(error): Observable<any> {
     if (error.status === 401 || !this.authService.isSessionValid()) {
-      this.authService.logout();
+      this.authService.sessionExpired();
     }
 
     console.log('Error in subjects service');

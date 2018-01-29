@@ -25,14 +25,13 @@ export class SubjectsComponent implements OnInit {
   }
 
   onRowClick(subject: Subject) {
-    this.router.navigate([`${subject.id}`],  {relativeTo: this.route});
+    this.router.navigate([`${subject.id}`],  {
+      relativeTo: this.route
+    });
   }
 
   public async addSubject(): Promise<void> {
-    const dialogRef = this.dialog.open(SubjectCreateComponent/*, {
-      width: '35rem',
-      height: '15rem'
-    }*/);
+    const dialogRef = this.dialog.open(SubjectCreateComponent);
 
     const result = await dialogRef.afterClosed().toPromise();
     if (result) {
@@ -46,24 +45,10 @@ export class SubjectsComponent implements OnInit {
       console.log(learnedTray);
 
       if (subject) {
-        this.router.navigate([`${subject.id}`, 'edit'],  {relativeTo: this.route});
-      }
-    }
-    /*
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.subjectsService.createSubject(result).subscribe(data => {
-          for (let i = 1; i <= 5; i++) {
-            this.subjectsService.createTray(data, `Fach ${i}`, '00:00:00').subscribe(tray => console.log(tray));
-          }
-          this.subjectsService.createTray(data, 'Gelernt', '00:00:00').subscribe(tray => console.log(tray));
-
-          console.log(data);
-          if (data) {
-            this.router.navigate([`${data.id}`, 'edit'],  {relativeTo: this.route});
-          }
+        this.router.navigate([`${subject.id}`, 'edit'], {
+          relativeTo: this.route
         });
       }
-    });*/
+    }
   }
 }

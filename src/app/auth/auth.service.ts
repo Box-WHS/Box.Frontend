@@ -100,7 +100,22 @@ export class AuthService {
   }
 
   logout(): void {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/login'], {
+      queryParams: {
+        loggedOut: true
+      }
+    });
+
+    this.loggedIn = false;
+    this.storageService.remove(environment.auth.sessionStorageName);
+  }
+
+  public sessionExpired(): void {
+    this.router.navigate(['/login'], {
+      queryParams: {
+        sessionExpired: true
+      }
+    });
 
     this.loggedIn = false;
     this.storageService.remove(environment.auth.sessionStorageName);
