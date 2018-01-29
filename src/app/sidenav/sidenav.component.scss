@@ -17,13 +17,13 @@
   &:focus {
     outline: none;
   }
+
+  &:hover {
+    color: #9d9d9d;
+    cursor: pointer;
+  }
 }
 
 .sidebar-entry-content {
   font-size: 1.3rem;
-}
-
-mat-toolbar-row:hover {
-  color: #9d9d9d;
-  cursor: pointer;
 }
