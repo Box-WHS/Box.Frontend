@@ -11,7 +11,7 @@
   font-size: 0.8rem;
 
   &.active {
-    color: black;
+    color: black !important;
   }
 
   &:focus {
