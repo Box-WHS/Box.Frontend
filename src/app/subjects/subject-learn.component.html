@@ -52,7 +52,7 @@
               <mat-card-subtitle *ngIf="tray.cards">{{tray.cards.length}} Karteikarten</mat-card-subtitle>
             </mat-card-header>
             <mat-card-actions *ngIf="(tray != subject.trays[subject.trays.length - 1])">
-              <button mat-raised-button (click)="selectTray(tray)">Lernen</button>
+              <button mat-raised-button (click)="selectTray(tray)" [disabled]="tray.cards.length === 0">Lernen</button>
             </mat-card-actions>
           </mat-card>
         </div>

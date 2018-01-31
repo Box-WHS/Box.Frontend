@@ -97,6 +97,15 @@ export class SubjectsService {
     // TODO: implement
   }
 
+  public moveCard(card: Card, targetTray: Tray): Observable<boolean> {
+    return this.http.put(`${environment.api.apiUrl}/Card/${card.id}/move/${targetTray.id}`, { boxId: targetTray.boxId }).map(data => {
+      console.log(data);
+      return true;
+    }).catch(error => {
+      return this.handleError(error);
+    });
+  }
+
   public deleteCard(card: Card): void {
     // TODO: implement
   }
