@@ -68,9 +68,11 @@ export class SubjectEditComponent implements OnInit {
       `Dies setzt den Lernfortschritt aller Karten in ${tray.name} zurück.`,
       'Abbrechen',
       'Zurücksetzen').subscribe(result => {
+        tray.cards.forEach(currentCard => {
+          this.subjectsService.moveCard(currentCard, this.subject.trays[0]).subscribe();
+        });
         this.subject.trays[0].cards = this.subject.trays[0].cards.concat(tray.cards);
         tray.cards = [];
-        // TODO: api call
     });
   }
 
@@ -82,10 +84,13 @@ export class SubjectEditComponent implements OnInit {
       'Abbrechen',
       'Alle zurücksetzen', true).subscribe(result => {
         for (let i = 1; i < this.subject.trays.length; i++) {
+          this.subject.trays[i].cards.forEach(currentCard => {
+            this.subjectsService.moveCard(currentCard, this.subject.trays[0]).subscribe();
+          });
+
           this.subject.trays[0].cards = this.subject.trays[0].cards.concat(this.subject.trays[i].cards);
           this.subject.trays[i].cards = [];
         }
-        // TODO: api call
     });
   }
 

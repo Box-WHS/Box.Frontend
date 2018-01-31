@@ -9,6 +9,7 @@ import { Subject } from './subject';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SubjectsService } from './subjects.service';
 import { Card } from './card';
+import { NotificationsService } from 'angular2-notifications/dist';
 
 @Component({
   templateUrl: './subject-learn.component.html',
@@ -38,6 +39,7 @@ export class SubjectLearnComponent implements OnInit {
   subject: Subject;
   showAnswer = false;
   currentTrayIndex = -1;
+  subjectLearned = false;
   currentCard: Card;
   boxesMinimized = this.storageService.getBool(this.boxesMinimzedStorageKey, false);
 
@@ -49,6 +51,7 @@ export class SubjectLearnComponent implements OnInit {
               public storageService: StorageService,
               private route: ActivatedRoute,
               private router: Router,
+              private notificationsService: NotificationsService,
               private subjectsService: SubjectsService) {
   }
 
@@ -56,14 +59,19 @@ export class SubjectLearnComponent implements OnInit {
     this.subject = this.route.snapshot.data.data as Subject;
     AppComponent.pageTitle = `Fach ${this.subject.name} lernen`;
     for (let i = 0; i < this.subject.trays.length; i++) {
-      if (this.subject.trays[i].cards.length > -1) {
+      if (this.subject.trays[i].cards.length > 0) {
+        if (i === this.subject.trays.length - 1) {
+          this.subjectLearned = true;
+          break;
+        }
         this.currentTrayIndex = i;
         this.currentCard = this.subject.trays[i].cards[0];
         break;
       }
     }
-    if (this.currentTrayIndex === -1) {
+    if (this.currentTrayIndex === -1 && !this.subjectLearned) {
       this.router.navigate(['/subjects']);
+      this.notificationsService.warn('Keine Karten vorhanden', 'Bitte füge Karten hinzu, um dieses Fach zu lernen');
       return;
     }
   }
@@ -73,6 +81,7 @@ export class SubjectLearnComponent implements OnInit {
       this.answerForm.controls.answer.setValue('');
       this.moveCard(this.subject.trays[this.currentTrayIndex], this.subject.trays[this.currentTrayIndex + 1], this.currentCard);
       this.selectNextCard();
+      this.notificationsService.success('Richtig', 'Frage richtig beantwortet');
       return;
     }
 
@@ -95,8 +104,8 @@ export class SubjectLearnComponent implements OnInit {
     // TODO: handle if all cards are learned
     if (this.subject.trays[this.currentTrayIndex].cards.length === 0) {
       this.currentTrayIndex++;
-      if (this.currentTrayIndex > 4) {
-        this.currentTrayIndex = 0;
+      if (this.currentTrayIndex > this.subject.trays.length - 1) {
+        this.subjectLearned = true;
       }
       return;
     }
