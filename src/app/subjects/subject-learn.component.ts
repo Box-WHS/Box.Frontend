@@ -90,11 +90,8 @@ export class SubjectLearnComponent implements OnInit {
 
   private moveCard(currentTray: Tray, targetTray: Tray, card: Card): void {
     const index = currentTray.cards.indexOf(card);
-    console.log(index);
-    console.log(currentTray.cards);
     if (index > -1) {
       currentTray.cards.splice(index, 1);
-      console.log(currentTray.cards);
       this.subjectsService.moveCard(card, targetTray).subscribe();
       targetTray.cards.push(card);
     }
@@ -104,7 +101,7 @@ export class SubjectLearnComponent implements OnInit {
     // TODO: handle if all cards are learned
     if (this.subject.trays[this.currentTrayIndex].cards.length === 0) {
       this.currentTrayIndex++;
-      if (this.currentTrayIndex > this.subject.trays.length - 1) {
+      if (this.currentTrayIndex >= this.subject.trays.length - 1) {
         this.subjectLearned = true;
       }
       return;
@@ -123,7 +120,6 @@ export class SubjectLearnComponent implements OnInit {
     this.answerForm.controls.answer.setValue('');
 
     const targetTrayIndex = answerCorrect ? this.currentTrayIndex + 1 : Math.max(this.currentTrayIndex - 1, 0);
-    console.log(targetTrayIndex);
     this.moveCard(this.subject.trays[this.currentTrayIndex], this.subject.trays[targetTrayIndex], this.currentCard);
     this.selectNextCard();
   }

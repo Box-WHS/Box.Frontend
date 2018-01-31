@@ -1,7 +1,7 @@
 <div class="card-container-outer">
   <div class="card-container-inner">
     <mat-card class="card">
-      <ng-container *ngIf="currentCard; else subjectComplete">
+      <ng-container *ngIf="currentCard && !subjectLearned; else subjectComplete">
         <mat-card-header>
           <mat-card-title class="learn-card-title">{{subject.trays[currentTrayIndex].name}}</mat-card-title>
           <!--<mat-card-subtitle class="learn-card-subtitle">Karte / 20</mat-card-subtitle>-->
@@ -34,11 +34,11 @@
         </mat-card-actions>
       </ng-container>
       <ng-template #subjectComplete>
-        <mat-card-content style="text-align: center">
+        <mat-card-content class="subject-learn-complete-card">
           <h2>Alles gelernt</h2>
           <p>
             Du warst fleißig und hast alles gelernt. Du kannst in den <a [routerLink]="['../edit']">Einstellungen</a> deinen Lernfortschritt zurücksetzen,
-            falls du von vorne beginnen möchtest.
+            falls Du von vorne beginnen möchtest.
           </p>
         </mat-card-content>
       </ng-template>
